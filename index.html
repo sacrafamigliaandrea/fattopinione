@@ -13,20 +13,12 @@
   --bg:#F0F4F8;--card:#FFFFFF;--card-alt:#F8FAFC;
   --text:#1E293B;--text-mid:#475569;--text-light:#94A3B8;
   --accent:#7C3AED;--accent-soft:#EDE9FE;
+  --teal:#0D9488;--teal-soft:#CCFBF1;
   --radius:18px;--shadow:0 8px 32px rgba(0,0,0,.08);
 }
 html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;user-select:none}
-
-/* ── PATTERNS ── */
-body::before{content:'';position:fixed;inset:0;background:
-  radial-gradient(circle at 20% 80%,rgba(37,99,235,.04) 0,transparent 50%),
-  radial-gradient(circle at 80% 20%,rgba(217,119,6,.04) 0,transparent 50%);
-  pointer-events:none;z-index:0}
-
-/* ── LAYOUT ── */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 80%,rgba(37,99,235,.04) 0,transparent 50%),radial-gradient(circle at 80% 20%,rgba(217,119,6,.04) 0,transparent 50%);pointer-events:none;z-index:0}
 .app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column}
-
-/* ── HEADER ── */
 .header{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:var(--card);border-bottom:2px solid #E2E8F0;flex-shrink:0}
 .logo{display:flex;align-items:center;gap:10px}
 .logo svg{flex-shrink:0}
@@ -38,119 +30,67 @@ body::before{content:'';position:fixed;inset:0;background:
 .b-score{background:var(--blu-soft);color:var(--blu)}
 .b-combo{background:var(--accent-soft);color:var(--accent);display:none}
 .b-level{background:#FDF4FF;color:var(--accent);border:1.5px solid var(--accent)}
-
-/* ── MIC BAR ── */
 .mic-strip{height:4px;background:#E2E8F0;position:relative;flex-shrink:0}
 .mic-strip-fill{height:100%;width:0%;transition:width .25s;border-radius:0 2px 2px 0;background:var(--blu)}
 .mic-strip.loud .mic-strip-fill{background:var(--ambra)}
 .mic-tag{position:absolute;right:8px;top:-16px;font-size:.6rem;color:var(--text-light);font-weight:700;letter-spacing:.6px;text-transform:uppercase}
-
-/* ── MAIN ── */
 .main{flex:1;display:flex;overflow:hidden}
 .arena{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:8px;position:relative}
-
-
-
-/* ── PHRASE CARD ── */
-.phrase-card{
-  background:var(--card);border:2.5px solid #E2E8F0;border-radius:var(--radius);
-  padding:36px 44px;max-width:680px;width:100%;text-align:center;
-  box-shadow:var(--shadow);min-height:130px;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:12px;
-  transition:border-color .3s,transform .25s,box-shadow .3s;position:relative;
-}
+.phrase-card{background:var(--card);border:2.5px solid #E2E8F0;border-radius:var(--radius);padding:36px 44px;max-width:680px;width:100%;text-align:center;box-shadow:var(--shadow);min-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:border-color .3s,transform .25s,box-shadow .3s;position:relative}
 .phrase-card.combo-glow{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft),var(--shadow)}
 .phrase-card.pop{animation:cardPop .35s cubic-bezier(.34,1.56,.64,1)}
 @keyframes cardPop{0%{transform:scale(.92);opacity:.4}100%{transform:scale(1);opacity:1}}
-
 .phrase-text{font-family:'Fredoka',sans-serif;font-size:1.9rem;font-weight:600;line-height:1.35;color:var(--text)}
-.phrase-text .spia{background:var(--ambra-soft);color:var(--ambra);padding:1px 6px;border-radius:6px;transition:background .3s}
-
-.round-label{
-  font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:1px;padding:3px 12px;border-radius:12px;
-  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
-}
+.phrase-text .spia{background:var(--ambra-soft);color:var(--ambra);padding:1px 6px;border-radius:6px}
+.round-label{font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:3px 12px;border-radius:12px;position:absolute;top:-12px;left:50%;transform:translateX(-50%)}
 .round-label.rl-trap{background:var(--ambra-soft);color:var(--ambra)}
 .round-label.rl-transform{background:var(--accent-soft);color:var(--accent)}
 .round-label.rl-motiva{background:var(--blu-soft);color:var(--blu)}
-
-/* ── FEEDBACK ── */
-.feedback{
-  min-height:36px;padding:6px 20px;border-radius:20px;
-  font-family:'Fredoka',sans-serif;font-size:.95rem;font-weight:600;
-  opacity:0;transition:opacity .25s;white-space:nowrap;
-}
+.feedback-row{display:flex;align-items:center;gap:10px;min-height:40px;flex-wrap:wrap;justify-content:center}
+.feedback{padding:6px 20px;border-radius:20px;font-family:'Fredoka',sans-serif;font-size:.95rem;font-weight:600;opacity:0;transition:opacity .25s;white-space:nowrap}
 .feedback.show{opacity:1}
 .feedback.ok{background:var(--blu-soft);color:var(--blu)}
 .feedback.ko{background:var(--ambra-soft);color:var(--ambra)}
 .feedback.bonus{background:var(--accent-soft);color:var(--accent)}
-
-/* ── BUTTONS ── */
+.btn-info{display:none;font-family:'Fredoka',sans-serif;font-size:.82rem;font-weight:600;padding:5px 14px;border:2px solid var(--teal);border-radius:20px;background:var(--teal-soft);color:var(--teal);cursor:pointer;transition:transform .15s,background .15s;gap:4px;align-items:center}
+.btn-info:hover{background:var(--teal);color:#fff}
+.btn-info:active{transform:scale(.95)}
+.btn-info.visible{display:inline-flex}
+.btn-info svg{flex-shrink:0}
+.info-panel{display:none;max-width:580px;width:100%;padding:14px 20px;border-radius:14px;background:var(--teal-soft);border:1.5px solid var(--teal);color:var(--text-mid);font-size:.92rem;line-height:1.55;text-align:center;animation:infoSlide .3s ease}
+.info-panel.show{display:block}
+.info-panel strong{color:var(--teal)}
+@keyframes infoSlide{0%{opacity:0;transform:translateY(-8px)}100%{opacity:1;transform:translateY(0)}}
 .btn-row{display:flex;gap:20px;flex-shrink:0;margin-top:8px}
-.btn{
-  font-family:'Fredoka',sans-serif;font-size:1.15rem;font-weight:600;
-  padding:14px 44px;border:none;border-radius:40px;cursor:pointer;
-  transition:transform .12s,box-shadow .15s;letter-spacing:.3px;
-}
+.btn{font-family:'Fredoka',sans-serif;font-size:1.15rem;font-weight:600;padding:14px 44px;border:none;border-radius:40px;cursor:pointer;transition:transform .12s,box-shadow .15s;letter-spacing:.3px}
 .btn:active{transform:scale(.94)}
 .btn:disabled{opacity:.4;pointer-events:none}
 .btn-fatto{background:var(--blu);color:#fff;box-shadow:0 4px 16px var(--blu-glow)}
 .btn-fatto:hover:not(:disabled){box-shadow:0 6px 24px var(--blu-glow)}
 .btn-opinione{background:var(--ambra);color:#fff;box-shadow:0 4px 16px var(--ambra-glow)}
 .btn-opinione:hover:not(:disabled){box-shadow:0 6px 24px var(--ambra-glow)}
-
-/* ── OPTION BUTTONS (Trasforma / Motiva) ── */
 .opt-row{display:flex;flex-direction:column;gap:10px;max-width:560px;width:100%}
-.opt-btn{
-  font-family:'Outfit',sans-serif;font-size:1rem;font-weight:500;
-  padding:14px 20px;border:2px solid #E2E8F0;border-radius:14px;
-  background:var(--card);cursor:pointer;text-align:left;
-  transition:border-color .15s,background .15s,transform .1s;
-}
+.opt-btn{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:500;padding:14px 20px;border:2px solid #E2E8F0;border-radius:14px;background:var(--card);cursor:pointer;text-align:left;transition:border-color .15s,background .15s,transform .1s}
 .opt-btn:hover{border-color:var(--accent);background:var(--accent-soft)}
 .opt-btn:active{transform:scale(.98)}
 .opt-btn.chosen-ok{border-color:var(--blu);background:var(--blu-soft)}
 .opt-btn.chosen-ko{border-color:var(--ambra);background:var(--ambra-soft)}
 .opt-btn:disabled{pointer-events:none;opacity:.6}
-
-/* ── SIDEBAR ── */
 .sidebar{width:210px;background:var(--card);border-left:2px solid #E2E8F0;padding:16px 12px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;flex-shrink:0}
 .side-section h3{font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
 .side-section.s-levels h3{color:var(--accent)}
 .side-section.s-tower h3{color:var(--blu)}
 .side-section.s-medals h3{color:var(--ambra)}
-
-/* combo flame */
 .combo-box{text-align:center;padding:8px 0}
 .combo-box .flame-wrap{display:inline-block;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
 .combo-box .combo-label{font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:700;color:var(--accent);margin-top:4px}
 .combo-box.inactive{opacity:.2;filter:grayscale(1)}
-
-/* tower */
 .tower-container{position:relative;height:200px;background:var(--card-alt);border-radius:12px;border:1.5px solid #E2E8F0;overflow:hidden;display:flex;flex-direction:column-reverse;padding:4px;gap:2px}
-.tower-block{
-  width:100%;min-height:4px;border-radius:4px;
-  animation:blockDrop .35s cubic-bezier(.34,1.56,.64,1);
-  flex-shrink:0;
-}
+.tower-block{width:100%;min-height:3px;border-radius:4px;animation:blockDrop .35s cubic-bezier(.34,1.56,.64,1);flex-shrink:0}
 @keyframes blockDrop{0%{transform:translateY(-20px);opacity:0}100%{transform:translateY(0);opacity:1}}
-.tower-milestone{
-  position:absolute;right:6px;font-family:'Fredoka',sans-serif;font-size:.6rem;font-weight:700;
-  color:var(--text-light);pointer-events:none;
-}
-.tower-floor{
-  position:absolute;bottom:0;left:0;right:0;height:6px;
-  background:linear-gradient(90deg,var(--blu),var(--accent));border-radius:0 0 10px 10px;
-}
-
-/* medals */
+.tower-floor{position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--blu),var(--accent));border-radius:0 0 10px 10px}
 .medals-grid{display:flex;flex-wrap:wrap;gap:6px}
-.medal{
-  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  border:2px solid #E2E8F0;background:var(--card-alt);
-  transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative;
-}
+.medal{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #E2E8F0;background:var(--card-alt);transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative}
 .medal.earned{border-color:var(--ambra);background:var(--ambra-soft);box-shadow:0 2px 10px var(--ambra-glow)}
 .medal.earned svg{opacity:1}
 .medal svg{opacity:.2;transition:opacity .3s}
@@ -158,73 +98,54 @@ body::before{content:'';position:fixed;inset:0;background:
 .medal.earned .medal-num{background:var(--ambra);color:#fff}
 .medal.just-earned{animation:medalPop .5s cubic-bezier(.34,1.56,.64,1)}
 @keyframes medalPop{0%{transform:scale(0)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
-
-/* errors — subtle */
 .err-line{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--card-alt);border-radius:8px;margin-top:auto}
 .err-line .err-dot{width:8px;height:8px;border-radius:50%;background:var(--ambra)}
 .err-line .err-text{font-family:'Fredoka',sans-serif;font-size:.78rem;color:var(--text-light)}
-
-/* level badges */
+/* leaderboard */
+.side-section.s-rank h3{color:var(--teal)}
+.rank-list{display:flex;flex-direction:column;gap:3px}
+.rank-row{display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:8px;font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:600;transition:all .3s}
+.rank-pos{width:16px;text-align:right;color:var(--text-light);font-size:.65rem}
+.rank-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rank-pts{color:var(--text-light);font-size:.65rem}
+.rank-row.is-player{background:var(--blu-soft);color:var(--blu);border-radius:8px}
+.rank-row.is-teacher{background:linear-gradient(90deg,var(--teal-soft),#F0FDFA);color:var(--teal)}
+.rank-row.is-teacher .rank-name::after{content:' \u2605';font-size:.6rem}
+.rank-row.just-passed{animation:rankFlash .6s ease}
+@keyframes rankFlash{0%,100%{background:var(--blu-soft)}50%{background:var(--accent-soft)}}
+/* reading delay */
+.read-wait{display:none;flex-direction:column;align-items:center;gap:6px;margin-top:8px}
+.read-wait.active{display:flex}
+.read-wait-text{font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--text-light);font-weight:600}
+.read-wait-bar{width:160px;height:5px;background:#E2E8F0;border-radius:3px;overflow:hidden}
+.read-wait-fill{height:100%;background:var(--blu);border-radius:3px;width:0%;transition:width .15s linear}
 .lvl-grid{display:flex;flex-wrap:wrap;gap:6px}
-.lvl-badge{
-  width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-family:'Fredoka',sans-serif;font-size:.8rem;font-weight:700;
-  border:2px solid #E2E8F0;color:var(--text-light);background:var(--card-alt);
-  transition:all .3s;
-}
-.lvl-badge.unlocked{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);box-shadow:0 2px 8px rgba(124,58,237,.15)}
-.lvl-badge.active{border-color:var(--accent);color:#fff;background:var(--accent);box-shadow:0 2px 12px rgba(124,58,237,.3)}
-
-/* ── LEVEL TRANSITION ── */
-.level-overlay{
-  position:fixed;inset:0;z-index:50;background:rgba(15,23,42,.6);backdrop-filter:blur(8px);
-  display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px;
-}
+.lvl-badge{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-size:.8rem;font-weight:700;border:2px solid #E2E8F0;color:var(--text-light);background:var(--card-alt);transition:all .3s}
+.lvl-badge.unlocked{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.lvl-badge.active{border-color:var(--accent);color:#fff;background:var(--accent)}
+.level-overlay{position:fixed;inset:0;z-index:50;background:rgba(15,23,42,.6);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:16px}
 .level-overlay.show{display:flex}
 .level-overlay h2{font-family:'Fredoka',sans-serif;font-size:2.4rem;color:#fff}
 .level-overlay p{font-size:1rem;color:rgba(255,255,255,.7);max-width:360px;text-align:center}
 .level-overlay .btn{background:var(--accent);color:#fff;box-shadow:0 4px 16px rgba(124,58,237,.3)}
-
-/* ── SPLASH ── */
-.splash{
-  position:fixed;inset:0;z-index:100;background:var(--bg);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
-  overflow-y:auto;padding:24px;
-}
-.splash::before{content:'';position:absolute;inset:0;background:
-  radial-gradient(ellipse at 30% 70%,rgba(37,99,235,.06) 0,transparent 60%),
-  radial-gradient(ellipse at 70% 30%,rgba(217,119,6,.06) 0,transparent 60%);pointer-events:none}
+.splash{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;overflow-y:auto;padding:24px}
+.splash::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%,rgba(37,99,235,.06) 0,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(217,119,6,.06) 0,transparent 60%);pointer-events:none}
 .splash>*{position:relative;z-index:1}
-.splash h2{font-family:'Fredoka',sans-serif;font-size:2.4rem;color:var(--blu)}
-.splash h2 span{color:var(--ambra)}
 .splash p{font-size:.95rem;color:var(--text-mid);max-width:440px;text-align:center;line-height:1.65}
 .splash .btn-start{background:var(--blu);color:#fff;font-size:1.1rem;padding:14px 44px}
-
-/* ── END SCREEN ── */
 .end-screen{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
 .end-screen h2{font-family:'Fredoka',sans-serif;font-size:2rem;color:var(--blu)}
 .end-screen p{font-size:1rem;color:var(--text-mid);max-width:420px}
 .btn-restart{background:var(--blu);color:#fff}
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .sidebar{display:none}
-  .phrase-text{font-size:1.3rem}
-  .btn{padding:12px 28px;font-size:1rem}
-  .phrase-card{padding:24px 20px}
-}
+@media(max-width:768px){.sidebar{display:none}.phrase-text{font-size:1.3rem}.btn{padding:12px 28px;font-size:1rem}.phrase-card{padding:24px 20px}}
 </style>
 </head>
 <body>
-
-<!-- ═══ SPLASH ═══ -->
 <div class="splash" id="splash">
   <img src="fattopinione.jpg" alt="Fatto o Opinione?" style="max-width:520px;width:90%;border-radius:var(--radius);box-shadow:var(--shadow)">
-  <p>Leggi la frase, decidi se è un <strong>fatto</strong> verificabile o un'<strong>opinione</strong> personale. Costruisci combo con le risposte consecutive per moltiplicare il punteggio! Attenzione alle trappole...</p>
+  <p>Leggi la frase e decidi: <strong>fatto</strong> verificabile o <strong>opinione</strong> personale? Dopo ogni risposta premi <strong style="color:var(--teal)">INFO</strong> per scoprire qualcosa in pi&ugrave;!</p>
   <button class="btn btn-start" onclick="startGame()">Inizia</button>
 </div>
-
-<!-- ═══ APP ═══ -->
 <div class="app" id="app" style="display:none">
   <div class="header">
     <div class="logo">
@@ -233,563 +154,336 @@ body::before{content:'';position:fixed;inset:0;background:
     </div>
     <div class="hud">
       <span class="badge b-level" id="bLevel">Livello 1</span>
-      <span class="badge b-combo" id="bCombo">Combo x2</span>
+      <span class="badge b-combo" id="bCombo"></span>
       <span class="badge b-score" id="bScore">0 pt</span>
       <span class="badge b-progress" id="bProgress">1/20</span>
     </div>
   </div>
-  <div class="mic-strip" id="micStrip">
-    <div class="mic-strip-fill" id="micFill"></div>
-    <span class="mic-tag" id="micTag">SALA STUDIO</span>
-  </div>
-
+  <div class="mic-strip" id="micStrip"><div class="mic-strip-fill" id="micFill"></div><span class="mic-tag" id="micTag">SALA STUDIO</span></div>
   <div class="main">
-    <div class="arena" id="arena">
-      <!-- phrase card -->
+    <div class="arena">
       <div class="phrase-card" id="phraseCard">
         <span class="round-label" id="roundLabel" style="display:none"></span>
         <div class="phrase-text" id="phraseText"></div>
       </div>
-
-      <div class="feedback" id="feedback"></div>
-
-      <!-- standard buttons -->
+      <div class="feedback-row">
+        <div class="feedback" id="feedback"></div>
+        <button class="btn-info" id="btnInfo" onclick="toggleInfo()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          INFO
+        </button>
+      </div>
+      <div class="info-panel" id="infoPanel"></div>
       <div class="btn-row" id="btnRow">
         <button class="btn btn-fatto" id="btnFatto" onclick="answer('fatto')">Fatto</button>
         <button class="btn btn-opinione" id="btnOpinione" onclick="answer('opinione')">Opinione</button>
       </div>
-
-      <!-- option buttons for special rounds -->
+      <div class="read-wait" id="readWait">
+        <div class="read-wait-text" id="readWaitText">Leggi con attenzione...</div>
+        <div class="read-wait-bar"><div class="read-wait-fill" id="readWaitFill"></div></div>
+      </div>
       <div class="opt-row" id="optRow" style="display:none"></div>
-
-      <!-- end screen -->
       <div class="end-screen" id="endScreen">
         <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="#2563EB" stroke-width="2.5"/><path d="M16 26l7 7 13-13" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h2 id="endTitle"></h2>
-        <p id="endMsg"></p>
+        <h2 id="endTitle"></h2><p id="endMsg"></p>
         <button class="btn btn-restart" onclick="restart()">Rigioca</button>
       </div>
     </div>
-
     <div class="sidebar">
-      <div class="side-section s-levels">
-        <h3>Livelli</h3>
-        <div class="lvl-grid" id="lvlGrid"></div>
-      </div>
-
-      <!-- Combo Flame -->
+      <div class="side-section s-levels"><h3>Livelli</h3><div class="lvl-grid" id="lvlGrid"></div></div>
       <div class="combo-box inactive" id="comboBox">
-        <div class="flame-wrap" id="flameWrap">
-          <svg width="40" height="48" viewBox="0 0 40 48" fill="none">
-            <path d="M20 2c0 0-16 14-16 28a16 16 0 0032 0C36 16 20 2 20 2z" fill="#7C3AED" opacity=".2"/>
-            <path d="M20 12c0 0-9 8-9 18a9 9 0 0018 0C29 20 20 12 20 12z" fill="#7C3AED" opacity=".5"/>
-            <path d="M20 22c0 0-4 4-4 9a4 4 0 008 0C24 26 20 22 20 22z" fill="#7C3AED"/>
-          </svg>
-        </div>
+        <div class="flame-wrap" id="flameWrap"><svg width="40" height="48" viewBox="0 0 40 48" fill="none"><path d="M20 2c0 0-16 14-16 28a16 16 0 0032 0C36 16 20 2 20 2z" fill="#7C3AED" opacity=".2"/><path d="M20 12c0 0-9 8-9 18a9 9 0 0018 0C29 20 20 12 20 12z" fill="#7C3AED" opacity=".5"/><path d="M20 22c0 0-4 4-4 9a4 4 0 008 0C24 26 20 22 20 22z" fill="#7C3AED"/></svg></div>
         <div class="combo-label" id="comboLabel">COMBO</div>
       </div>
-
-      <!-- Tower -->
-      <div class="side-section s-tower">
-        <h3>La tua torre</h3>
-        <div class="tower-container" id="towerContainer">
-          <div class="tower-floor"></div>
-        </div>
+      <div class="side-section s-rank">
+        <h3>Classifica</h3>
+        <div class="rank-list" id="rankList"></div>
       </div>
-
-      <!-- Medals -->
-      <div class="side-section s-medals">
-        <h3>Traguardi</h3>
-        <div class="medals-grid" id="medalsGrid"></div>
-      </div>
-
-      <!-- Errors subtle -->
-      <div class="err-line" id="errLine">
-        <span class="err-dot"></span>
-        <span class="err-text" id="errText">0 errori</span>
-      </div>
+      <div class="side-section s-tower"><h3>La tua torre</h3><div class="tower-container" id="towerContainer"><div class="tower-floor"></div></div></div>
+      <div class="side-section s-medals"><h3>Traguardi</h3><div class="medals-grid" id="medalsGrid"></div></div>
+      <div class="err-line"><span class="err-dot"></span><span class="err-text" id="errText">0 errori</span></div>
     </div>
   </div>
 </div>
-
-<!-- ═══ LEVEL OVERLAY ═══ -->
 <div class="level-overlay" id="levelOverlay">
   <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="2" y="2" width="44" height="44" rx="14" stroke="#7C3AED" stroke-width="2.5"/><text x="24" y="30" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="18" fill="#7C3AED" id="lvlNum"></text></svg>
-  <h2 id="lvlTitle"></h2>
-  <p id="lvlDesc"></p>
+  <h2 id="lvlTitle"></h2><p id="lvlDesc"></p>
   <button class="btn" onclick="closeLevelOverlay()">Avanti</button>
 </div>
-
 <script>
-/* ═══════════════════════════════════════════
-   DATA — 100 frasi, 5 livelli da 20
-   ═══════════════════════════════════════════ */
 const LEVELS=[
   {name:"Livello 1",desc:"Frasi chiare. Distingui fatti da opinioni."},
-  {name:"Livello 2",desc:"Un po' più sottile. Occhio alle sfumature!"},
+  {name:"Livello 2",desc:"Un po\u2019 pi\u00f9 sottile. Occhio alle sfumature!"},
   {name:"Livello 3",desc:"Arrivano le trappole linguistiche e i round Motiva!"},
   {name:"Livello 4",desc:"Round Trasforma e frasi ambigue. Concentrazione!"},
   {name:"Livello 5",desc:"Il livello esperto. Tutto insieme!"},
 ];
-
-// spia: parola-trappola da evidenziare nel feedback
-// special: "motiva" o "trasforma" — inseriti programmaticamente
-const FRASI=[
-// ── LIVELLO 1 (0-19): nette ──
-{t:"L'acqua bolle a 100 gradi Celsius al livello del mare.",c:"fatto",lv:0},
-{t:"La Terra gira intorno al Sole.",c:"fatto",lv:0},
-{t:"La pizza è il cibo più buono del mondo.",c:"opinione",lv:0},
-{t:"Roma è la capitale d'Italia.",c:"fatto",lv:0},
-{t:"L'estate è la stagione più divertente.",c:"opinione",lv:0},
-{t:"I delfini sono mammiferi.",c:"fatto",lv:0},
-{t:"I gatti sono più simpatici dei cani.",c:"opinione",lv:0},
-{t:"La Luna impiega circa 28 giorni a orbitare intorno alla Terra.",c:"fatto",lv:0},
-{t:"Il blu è il colore più bello.",c:"opinione",lv:0},
-{t:"Le piante producono ossigeno attraverso la fotosintesi.",c:"fatto",lv:0},
-{t:"Il gelato alla fragola è il gusto migliore.",c:"opinione",lv:0},
-{t:"Il Po è il fiume più lungo d'Italia.",c:"fatto",lv:0},
-{t:"Leggere è più noioso che guardare la TV.",c:"opinione",lv:0},
-{t:"Ci sono sette continenti sulla Terra.",c:"fatto",lv:0},
-{t:"I film d'avventura sono più emozionanti di quelli comici.",c:"opinione",lv:0},
-{t:"I ragni hanno otto zampe.",c:"fatto",lv:0},
-{t:"Giocare a calcio è più divertente che giocare a pallavolo.",c:"opinione",lv:0},
-{t:"L'anno bisestile ha 366 giorni.",c:"fatto",lv:0},
-{t:"La matematica è la materia più difficile.",c:"opinione",lv:0},
-{t:"Il Sole è una stella.",c:"fatto",lv:0},
-// ── LIVELLO 2 (20-39): un po' più sottili ──
-{t:"La balena blu è l'animale più grande mai esistito.",c:"fatto",lv:1},
-{t:"Le vacanze al mare sono meglio di quelle in montagna.",c:"opinione",lv:1},
-{t:"Leonardo da Vinci ha dipinto la Gioconda.",c:"fatto",lv:1},
-{t:"La musica classica è noiosa per i bambini.",c:"opinione",lv:1},
-{t:"L'acqua è composta da idrogeno e ossigeno.",c:"fatto",lv:1},
-{t:"I videogiochi fanno male alla salute.",c:"opinione",lv:1},
-{t:"Le ossa di un adulto sono 206.",c:"fatto",lv:1},
-{t:"È meglio vivere in città che in campagna.",c:"opinione",lv:1},
-{t:"Dante Alighieri ha scritto la Divina Commedia.",c:"fatto",lv:1},
-{t:"Il cioccolato è più gustoso della vaniglia.",c:"opinione",lv:1},
-{t:"I pinguini vivono soprattutto nell'emisfero sud.",c:"fatto",lv:1},
-{t:"Studiare storia è più interessante che studiare geografia.",c:"opinione",lv:1},
-{t:"Mercurio è il pianeta più vicino al Sole.",c:"fatto",lv:1},
-{t:"Il tramonto è lo spettacolo più bello della natura.",c:"opinione",lv:1},
-{t:"Il ghiaccio galleggia sull'acqua.",c:"fatto",lv:1},
-{t:"I libri fantasy sono i più avvincenti.",c:"opinione",lv:1},
-{t:"La Costituzione italiana è entrata in vigore il 1° gennaio 1948.",c:"fatto",lv:1},
-{t:"La scuola dovrebbe iniziare più tardi la mattina.",c:"opinione",lv:1},
-{t:"Le api producono il miele.",c:"fatto",lv:1},
-{t:"I robot renderanno il mondo un posto migliore.",c:"opinione",lv:1},
-// ── LIVELLO 3 (40-59): trappole linguistiche + round Motiva ──
-{t:"Tutti i bambini adorano il gelato.",c:"opinione",lv:2,spia:"Tutti"},
-{t:"Giove è il pianeta più grande del Sistema Solare.",c:"fatto",lv:2},
-{t:"Le serie TV sono sempre meglio dei film.",c:"opinione",lv:2,spia:"sempre"},
-{t:"Il ferro è un metallo.",c:"fatto",lv:2},
-{t:"La pioggia rovina sempre le giornate.",c:"opinione",lv:2,spia:"sempre"},
-{t:"In un triangolo la somma degli angoli interni è 180 gradi.",c:"fatto",lv:2},
-{t:"Il lunedì è senza dubbio il giorno peggiore della settimana.",c:"opinione",lv:2,spia:"senza dubbio"},
-{t:"Il DNA contiene le informazioni genetiche degli esseri viventi.",c:"fatto",lv:2},
-{t:"Nessuno può negare che la primavera sia la stagione più bella.",c:"opinione",lv:2,spia:"Nessuno può negare"},
-{t:"I vulcani possono eruttare lava, cenere e gas.",c:"fatto",lv:2},
-// Motiva round
-{t:"Le verdure hanno un sapore sgradevole.",c:"opinione",lv:2,special:"motiva",motiva:[
-  {t:"Esprime un giudizio personale sul sapore",ok:true},
-  {t:"Contiene un dato scientifico verificabile",ok:false},
-  {t:"Riporta un risultato di laboratorio",ok:false}
-]},
-{t:"Cristoforo Colombo è arrivato in America nel 1492.",c:"fatto",lv:2},
-{t:"Chiunque direbbe che disegnare è più rilassante che scrivere.",c:"opinione",lv:2,spia:"Chiunque"},
-{t:"Il deserto del Sahara si trova in Africa.",c:"fatto",lv:2},
-{t:"È ovvio che il Natale è la festa più bella dell'anno.",c:"opinione",lv:2,spia:"È ovvio"},
-{t:"I gatti sono animali domestici diffusi in tutto il mondo.",c:"fatto",lv:2},
-{t:"Tutti sanno che i dolci fatti in casa sono migliori.",c:"opinione",lv:2,spia:"Tutti sanno"},
-{t:"L'Everest è la montagna più alta del mondo.",c:"fatto",lv:2},
-// Motiva round
-{t:"La luce viaggia più veloce del suono.",c:"fatto",lv:2,special:"motiva",motiva:[
-  {t:"Si può misurare con strumenti scientifici",ok:true},
-  {t:"È quello che pensano molte persone",ok:false},
-  {t:"Lo dice il mio libro preferito",ok:false}
-]},
-{t:"I compiti a casa sono troppo numerosi.",c:"opinione",lv:2,spia:"troppo"},
-// ── LIVELLO 4 (60-79): più trappole + Trasforma ──
-{t:"È un dato di fatto che correre sia lo sport più faticoso.",c:"opinione",lv:3,spia:"È un dato di fatto"},
-{t:"Una settimana ha sette giorni.",c:"fatto",lv:3},
-{t:"La tecnologia rende sicuramente la vita più semplice.",c:"opinione",lv:3,spia:"sicuramente"},
-{t:"Il cervello umano pesa in media circa 1,4 chilogrammi.",c:"fatto",lv:3},
-{t:"Ovviamente avere tanti amici è meglio che averne pochi.",c:"opinione",lv:3,spia:"Ovviamente"},
-{t:"I dinosauri si sono estinti circa 66 milioni di anni fa.",c:"fatto",lv:3},
-// Trasforma round
-{t:"",c:"",lv:3,special:"trasforma",base:"I pinguini vivono nell'emisfero sud.",baseC:"fatto",
-  opts:[
-    {t:"I pinguini sono gli animali più adorabili dell'emisfero sud.",ok:true},
-    {t:"I pinguini si nutrono di pesci e crostacei.",ok:false}
-  ]
-},
-{t:"L'ossigeno è necessario per la respirazione.",c:"fatto",lv:3},
-{t:"È indubbio che le storie con lieto fine siano le più belle.",c:"opinione",lv:3,spia:"È indubbio"},
-{t:"Pitagora era un matematico dell'antica Grecia.",c:"fatto",lv:3},
-{t:"Tutti concordano che i bambini di oggi siano più intelligenti.",c:"opinione",lv:3,spia:"Tutti concordano"},
-{t:"Le foglie delle piante contengono clorofilla.",c:"fatto",lv:3},
-// Motiva round
-{t:"Ogni bambino dovrebbe imparare a programmare.",c:"opinione",lv:3,special:"motiva",motiva:[
-  {t:"Usa 'dovrebbe': esprime un desiderio, non un dato",ok:true},
-  {t:"La programmazione esiste davvero, quindi è un fatto",ok:false},
-  {t:"Parla di bambini, quindi è verificabile",ok:false}
-]},
-{t:"L'orecchio umano ha tre parti: esterno, medio e interno.",c:"fatto",lv:3},
-{t:"Bisogna ammettere che viaggiare in treno è più piacevole.",c:"opinione",lv:3,spia:"Bisogna ammettere"},
-{t:"La plastica impiega centinaia di anni per decomporsi.",c:"fatto",lv:3},
-// Trasforma round
-{t:"",c:"",lv:3,special:"trasforma",base:"Il ghepardo è l'animale terrestre più veloce.",baseC:"fatto",
-  opts:[
-    {t:"Il ghepardo è l'animale più affascinante della savana.",ok:true},
-    {t:"Il ghepardo può raggiungere i 112 km/h.",ok:false}
-  ]
-},
-{t:"Marte è chiamato il Pianeta Rosso.",c:"fatto",lv:3},
-{t:"Indiscutibilmente, la pasta al pesto è il piatto migliore.",c:"opinione",lv:3,spia:"Indiscutibilmente"},
-{t:"Il Colosseo si trova a Roma.",c:"fatto",lv:3},
-// ── LIVELLO 5 (80-99): mix totale, veloce ──
-{t:"I terremoti sono causati dal movimento delle placche tettoniche.",c:"fatto",lv:4},
-{t:"È chiaro a tutti che le giornate di sole mettono di buon umore.",c:"opinione",lv:4,spia:"È chiaro a tutti"},
-{t:"Alessandro Volta ha inventato la pila elettrica.",c:"fatto",lv:4},
-{t:"I libri sono oggettivamente meglio dei tablet per leggere.",c:"opinione",lv:4,spia:"oggettivamente"},
-// Trasforma round
-{t:"",c:"",lv:4,special:"trasforma",base:"L'arcobaleno è formato da sette colori.",baseC:"fatto",
-  opts:[
-    {t:"L'arcobaleno è lo spettacolo naturale più emozionante.",ok:true},
-    {t:"L'arcobaleno si forma per la rifrazione della luce.",ok:false}
-  ]
-},
-{t:"Nella tavola periodica ci sono più di 100 elementi chimici.",c:"fatto",lv:4},
-{t:"Senza ombra di dubbio le feste a sorpresa sono una bella idea.",c:"opinione",lv:4,spia:"Senza ombra di dubbio"},
-{t:"Il Monte Bianco è la montagna più alta delle Alpi.",c:"fatto",lv:4},
-// Motiva round
-{t:"Imparare a suonare il pianoforte è facilissimo.",c:"opinione",lv:4,special:"motiva",motiva:[
-  {t:"Usa 'facilissimo': giudizio soggettivo sulla difficoltà",ok:true},
-  {t:"Il pianoforte esiste, quindi si può verificare",ok:false},
-  {t:"Parla di un'azione concreta, quindi è un fatto",ok:false}
-]},
-{t:"Inevitabilmente, il lavoro di squadra è più efficace.",c:"opinione",lv:4,spia:"Inevitabilmente"},
-{t:"Il ghepardo è l'animale terrestre più veloce.",c:"fatto",lv:4},
-{t:"Nessuno può davvero dire che la pioggia sia piacevole.",c:"opinione",lv:4,spia:"Nessuno può davvero dire"},
-// Trasforma round
-{t:"",c:"",lv:4,special:"trasforma",base:"La plastica impiega centinaia di anni per decomporsi.",baseC:"fatto",
-  opts:[
-    {t:"La plastica è il materiale più dannoso che esista.",ok:true},
-    {t:"La plastica è un polimero sintetico derivato dal petrolio.",ok:false}
-  ]
-},
-{t:"Andare in bicicletta è la cosa più divertente da fare all'aperto.",c:"opinione",lv:4},
-{t:"L'arcobaleno è formato da sette colori.",c:"fatto",lv:4},
-{t:"Le ragazze sono indubbiamente più brave a scuola dei ragazzi.",c:"opinione",lv:4,spia:"indubbiamente"},
-{t:"In Italia ci sono 20 regioni.",c:"fatto",lv:4},
-// Motiva round
-{t:"I cani sono i migliori amici dell'uomo.",c:"opinione",lv:4,special:"motiva",motiva:[
-  {t:"'Migliori amici' è un giudizio affettivo, non un dato",ok:true},
-  {t:"I cani esistono davvero, perciò è un fatto",ok:false},
-  {t:"Molte persone lo dicono, quindi è verificabile",ok:false}
-]},
-{t:"L'Italia confina con Francia, Svizzera, Austria e Slovenia.",c:"fatto",lv:4},
-{t:"È un fatto innegabile che la gentilezza sia la cosa più importante.",c:"opinione",lv:4,spia:"È un fatto innegabile"},
+const F=[
+// LV0
+{t:"L'acqua bolle a 100 gradi Celsius al livello del mare.",c:"fatto",lv:0,info:"Informazione attendibile! In cima a una montagna l'acqua bolle a temperature pi\u00f9 basse perch\u00e9 c'\u00e8 meno pressione. Per questo in alta quota la pasta cuoce peggio!"},
+{t:"La Terra gira intorno al Sole.",c:"fatto",lv:0,info:"Informazione attendibile! Ci mette circa 365 giorni e 6 ore. Quelle 6 ore extra si accumulano e ogni 4 anni ci danno il 29 febbraio!"},
+{t:"La pizza \u00e8 il cibo pi\u00f9 buono del mondo.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: \u00abpi\u00f9 buono\u00bb dipende dai gusti. In Giappone molti preferiscono il sushi, in Messico i tacos!"},
+{t:"Roma \u00e8 la capitale d'Italia.",c:"fatto",lv:0,info:"Informazione attendibile! Roma \u00e8 capitale dal 1871. Prima lo furono Torino e Firenze. Roma ha quasi 3 milioni di abitanti!"},
+{t:"L'estate \u00e8 la stagione pi\u00f9 divertente.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: molti bambini adorano l'estate per le vacanze, ma altri preferiscono l'inverno per la neve!"},
+{t:"I delfini sono mammiferi.",c:"fatto",lv:0,info:"Informazione attendibile! Anche se vivono in acqua, i delfini respirano aria, allattano i piccoli e hanno sangue caldo. Non sono pesci!"},
+{t:"I gatti sono pi\u00f9 simpatici dei cani.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: \u00absimpatico\u00bb \u00e8 un giudizio personale. Nessun esperimento pu\u00f2 misurare la simpatia!"},
+{t:"La Luna impiega circa 28 giorni a orbitare intorno alla Terra.",c:"fatto",lv:0,info:"Informazione attendibile! Precisamente 27,3 giorni. La Luna influenza le maree del mare!"},
+{t:"Il blu \u00e8 il colore pi\u00f9 bello.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: la bellezza di un colore dipende da chi guarda. Per\u00f2 il blu \u00e8 davvero il colore preferito nei sondaggi!"},
+{t:"Le piante producono ossigeno attraverso la fotosintesi.",c:"fatto",lv:0,info:"Informazione attendibile! Le piante usano luce, acqua e anidride carbonica per produrre cibo e rilasciare ossigeno. Senza piante non potremmo respirare!"},
+{t:"Il gelato alla fragola \u00e8 il gusto migliore.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: in Italia il gusto pi\u00f9 venduto \u00e8 il cioccolato, ma questo non lo rende \u00abmigliore\u00bb!"},
+{t:"Il Po \u00e8 il fiume pi\u00f9 lungo d'Italia.",c:"fatto",lv:0,info:"Informazione attendibile! \u00c8 lungo 652 km e attraversa tutta la Pianura Padana, dal Piemonte al Veneto."},
+{t:"Leggere \u00e8 pi\u00f9 noioso che guardare la TV.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: molte persone trovano i libri pi\u00f9 emozionanti di qualsiasi programma TV!"},
+{t:"Ci sono sette continenti sulla Terra.",c:"fatto",lv:0,info:"Informazione attendibile! Europa, Asia, Africa, America del Nord e del Sud, Oceania e Antartide. L'Asia \u00e8 il pi\u00f9 grande!"},
+{t:"I film d'avventura sono pi\u00f9 emozionanti di quelli comici.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: l'emozione dipende da chi guarda. C'\u00e8 chi ride cos\u00ec tanto con un film comico da trovarlo pi\u00f9 emozionante!"},
+{t:"I ragni hanno otto zampe.",c:"fatto",lv:0,info:"Informazione attendibile! Per questo non sono insetti (che ne hanno 6) ma aracnidi. Anche scorpioni e zecche sono aracnidi!"},
+{t:"Giocare a calcio \u00e8 pi\u00f9 divertente che giocare a pallavolo.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: il divertimento dipende dai gusti. La pallavolo \u00e8 lo sport pi\u00f9 praticato nelle scuole italiane!"},
+{t:"L'anno bisestile ha 366 giorni.",c:"fatto",lv:0,info:"Informazione attendibile! Il giorno extra \u00e8 il 29 febbraio. Succede ogni 4 anni perch\u00e9 la Terra impiega 365 giorni e quasi 6 ore a girare intorno al Sole."},
+{t:"La matematica \u00e8 la materia pi\u00f9 difficile.",c:"opinione",lv:0,info:"Non \u00e8 verificabile: la difficolt\u00e0 dipende da ciascuno. Per chi ama i numeri, la matematica \u00e8 facile!"},
+{t:"Il Sole \u00e8 una stella.",c:"fatto",lv:0,info:"Informazione attendibile! Il Sole \u00e8 una stella di medie dimensioni. Betelgeuse \u00e8 circa 700 volte pi\u00f9 grande!"},
+// LV1
+{t:"La balena blu \u00e8 l'animale pi\u00f9 grande mai esistito.",c:"fatto",lv:1,info:"Informazione attendibile! Pu\u00f2 raggiungere i 30 metri e pesare 150 tonnellate. Pi\u00f9 grande anche dei dinosauri!"},
+{t:"Le vacanze al mare sono meglio di quelle in montagna.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: \u00abmeglio\u00bb dipende dai gusti. Chi ama sciare preferisce la montagna!"},
+{t:"Leonardo da Vinci ha dipinto la Gioconda.",c:"fatto",lv:1,info:"Informazione attendibile! La dipinse tra il 1503 e il 1519. Oggi si trova al Museo del Louvre a Parigi!"},
+{t:"La musica classica \u00e8 noiosa per i bambini.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: molti bambini adorano la musica classica! Alcuni studi dicono che aiuta la concentrazione."},
+{t:"L'acqua \u00e8 composta da idrogeno e ossigeno.",c:"fatto",lv:1,info:"Informazione attendibile! La formula \u00e8 H\u2082O: due atomi di idrogeno e uno di ossigeno!"},
+{t:"I videogiochi fanno male alla salute.",c:"opinione",lv:1,info:"Non \u00e8 verificabile cos\u00ec com'\u00e8: dipende da quanto ci giochi. Alcuni giochi migliorano i riflessi!"},
+{t:"Le ossa di un adulto sono 206.",c:"fatto",lv:1,info:"Informazione attendibile! I neonati ne hanno circa 270, ma molte si fondono crescendo. L'osso pi\u00f9 piccolo \u00e8 la staffa, nell'orecchio!"},
+{t:"\u00c8 meglio vivere in citt\u00e0 che in campagna.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: in citt\u00e0 hai pi\u00f9 servizi, in campagna pi\u00f9 spazio e natura!"},
+{t:"Dante Alighieri ha scritto la Divina Commedia.",c:"fatto",lv:1,info:"Informazione attendibile! La scrisse tra il 1304 e il 1321. \u00c8 divisa in Inferno, Purgatorio e Paradiso, 100 canti in totale."},
+{t:"Il cioccolato \u00e8 pi\u00f9 gustoso della vaniglia.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: il gusto \u00e8 soggettivo! Cioccolato e vaniglia si contendono sempre il primo posto nei sondaggi."},
+{t:"I pinguini vivono soprattutto nell'emisfero sud.",c:"fatto",lv:1,info:"Informazione attendibile! Vivono in Antartide, Sud America, Sudafrica e Nuova Zelanda. Nessun pinguino vive al Polo Nord!"},
+{t:"Studiare storia \u00e8 pi\u00f9 interessante che studiare geografia.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: \u00abinteressante\u00bb \u00e8 un giudizio personale. Entrambe ci aiutano a capire il mondo!"},
+{t:"Mercurio \u00e8 il pianeta pi\u00f9 vicino al Sole.",c:"fatto",lv:1,info:"Informazione attendibile! Di giorno arriva a 430\u00b0C, ma di notte scende a -180\u00b0C!"},
+{t:"Il tramonto \u00e8 lo spettacolo pi\u00f9 bello della natura.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: \u00abpi\u00f9 bello\u00bb \u00e8 soggettivo. I colori dipendono da come la luce attraversa l'atmosfera."},
+{t:"Il ghiaccio galleggia sull'acqua.",c:"fatto",lv:1,info:"Informazione attendibile! \u00c8 meno denso dell'acqua liquida. Senza questa propriet\u00e0 i laghi ghiaccerebbero dal fondo!"},
+{t:"I libri fantasy sono i pi\u00f9 avvincenti.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: c'\u00e8 chi preferisce i gialli, la fantascienza o le storie vere!"},
+{t:"La Costituzione italiana \u00e8 entrata in vigore il 1\u00b0 gennaio 1948.",c:"fatto",lv:1,info:"Informazione attendibile! Contiene 139 articoli. I primi 12 sono i principi fondamentali!"},
+{t:"La scuola dovrebbe iniziare pi\u00f9 tardi la mattina.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: \u00abdovrebbe\u00bb esprime un desiderio. Per\u00f2 alcuni studi dicono che gli adolescenti imparano meglio se dormono di pi\u00f9!"},
+{t:"Le api producono il miele.",c:"fatto",lv:1,info:"Informazione attendibile! Un'ape produce circa mezzo cucchiaino di miele in tutta la vita. Per un vasetto servono circa 2 milioni di fiori visitati!"},
+{t:"I robot renderanno il mondo un posto migliore.",c:"opinione",lv:1,info:"Non \u00e8 verificabile: \u00abmigliore\u00bb \u00e8 un giudizio. I robot possono aiutare ma anche creare problemi."},
+// LV2
+{t:"Tutti i bambini adorano il gelato.",c:"opinione",lv:2,spia:"Tutti",info:"La parola \u00abtutti\u00bb \u00e8 la trappola! Esistono bambini allergici al latte o che non amano il gelato."},
+{t:"Giove \u00e8 il pianeta pi\u00f9 grande del Sistema Solare.",c:"fatto",lv:2,info:"Informazione attendibile! Ci entrerebbero pi\u00f9 di 1.300 Terre. Ha una tempesta gigante, la Grande Macchia Rossa!"},
+{t:"Le serie TV sono sempre meglio dei film.",c:"opinione",lv:2,spia:"sempre",info:"\u00abSempre\u00bb e \u00abmeglio\u00bb sono segnali di opinione. Non esiste un metro per misurarlo!"},
+{t:"Il ferro \u00e8 un metallo.",c:"fatto",lv:2,info:"Informazione attendibile! Il nucleo della Terra \u00e8 fatto principalmente di ferro e nichel!"},
+{t:"La pioggia rovina sempre le giornate.",c:"opinione",lv:2,spia:"sempre",info:"\u00abSempre\u00bb \u00e8 la trappola! La pioggia \u00e8 fondamentale per le piante. E saltare nelle pozzanghere \u00e8 divertente!"},
+{t:"In un triangolo la somma degli angoli interni \u00e8 180 gradi.",c:"fatto",lv:2,info:"Informazione attendibile! Vale per tutti i triangoli piatti. Puoi verificarlo con un goniometro!"},
+{t:"Il luned\u00ec \u00e8 senza dubbio il giorno peggiore della settimana.",c:"opinione",lv:2,spia:"senza dubbio",info:"\u00abSenza dubbio\u00bb e \u00abpeggiore\u00bb sono opinioni. Per chi lavora nel weekend, il luned\u00ec pu\u00f2 essere il giorno libero!"},
+{t:"Il DNA contiene le informazioni genetiche degli esseri viventi.",c:"fatto",lv:2,info:"Informazione attendibile! Se potessi srotolarlo, il DNA di una sola cellula sarebbe lungo circa 2 metri!"},
+{t:"Nessuno pu\u00f2 negare che la primavera sia la stagione pi\u00f9 bella.",c:"opinione",lv:2,spia:"Nessuno pu\u00f2 negare",info:"\u00abNessuno pu\u00f2 negare\u00bb \u00e8 un trucco per far sembrare un'opinione un fatto!"},
+{t:"I vulcani possono eruttare lava, cenere e gas.",c:"fatto",lv:2,info:"Informazione attendibile! In Italia abbiamo l'Etna e lo Stromboli. L'eruzione del Vesuvio nel 79 d.C. seppell\u00ec Pompei!"},
+{t:"Le verdure hanno un sapore sgradevole.",c:"opinione",lv:2,special:"motiva",info:"Il sapore \u00e8 soggettivo!",motiva:[{t:"Esprime un giudizio personale sul sapore",ok:true},{t:"Contiene un dato scientifico verificabile",ok:false},{t:"Riporta un risultato di laboratorio",ok:false}]},
+{t:"Cristoforo Colombo \u00e8 arrivato in America nel 1492.",c:"fatto",lv:2,info:"Informazione attendibile! Part\u00ec con la Ni\u00f1a, la Pinta e la Santa Mar\u00eda. Pensava di essere in Asia!"},
+{t:"Chiunque direbbe che disegnare \u00e8 pi\u00f9 rilassante che scrivere.",c:"opinione",lv:2,spia:"Chiunque",info:"\u00abChiunque\u00bb \u00e8 una generalizzazione. Molti scrittori trovano la scrittura rilassantissima!"},
+{t:"Il deserto del Sahara si trova in Africa.",c:"fatto",lv:2,info:"Informazione attendibile! \u00c8 il deserto caldo pi\u00f9 grande del mondo, quasi grande quanto gli Stati Uniti!"},
+{t:"\u00c8 ovvio che il Natale \u00e8 la festa pi\u00f9 bella dell'anno.",c:"opinione",lv:2,spia:"\u00c8 ovvio",info:"\u00ab\u00c8 ovvio\u00bb vuole far sembrare l'opinione un fatto. Chi non festeggia il Natale potrebbe preferire altre feste!"},
+{t:"I gatti sono animali domestici diffusi in tutto il mondo.",c:"fatto",lv:2,info:"Informazione attendibile! Circa 600 milioni di gatti domestici nel mondo. Furono addomesticati circa 10.000 anni fa!"},
+{t:"Tutti sanno che i dolci fatti in casa sono migliori.",c:"opinione",lv:2,spia:"Tutti sanno",info:"\u00abTutti sanno\u00bb \u00e8 una trappola! Molti pasticceri professionisti fanno dolci migliori di quelli casalinghi."},
+{t:"L'Everest \u00e8 la montagna pi\u00f9 alta del mondo.",c:"fatto",lv:2,info:"Informazione attendibile! 8.849 metri. In cima c'\u00e8 cos\u00ec poco ossigeno che serve la bombola!"},
+{t:"La luce viaggia pi\u00f9 veloce del suono.",c:"fatto",lv:2,special:"motiva",info:"Per questo vedi il lampo prima di sentire il tuono!",motiva:[{t:"Si pu\u00f2 misurare con strumenti scientifici",ok:true},{t:"\u00c8 quello che pensano molte persone",ok:false},{t:"Lo dice il mio libro preferito",ok:false}]},
+{t:"I compiti a casa sono troppo numerosi.",c:"opinione",lv:2,spia:"troppo",info:"\u00abTroppo\u00bb esprime un giudizio personale. Quello che \u00e8 troppo per te potrebbe essere poco per un altro!"},
+// LV3
+{t:"\u00c8 un dato di fatto che correre sia lo sport pi\u00f9 faticoso.",c:"opinione",lv:3,spia:"\u00c8 un dato di fatto",info:"Ironia! Dire \u00ab\u00e8 un dato di fatto\u00bb non trasforma un'opinione in fatto. Il triathlon \u00e8 probabilmente pi\u00f9 faticoso!"},
+{t:"Una settimana ha sette giorni.",c:"fatto",lv:3,info:"Informazione attendibile! I nomi dei giorni derivano da pianeti: Luned\u00ec dalla Luna, Marted\u00ec da Marte, Mercoled\u00ec da Mercurio..."},
+{t:"La tecnologia rende sicuramente la vita pi\u00f9 semplice.",c:"opinione",lv:3,spia:"sicuramente",info:"\u00abSicuramente\u00bb e \u00abpi\u00f9 semplice\u00bb sono giudizi. La tecnologia aiuta in molte cose ma ne complica altre!"},
+{t:"Il cervello umano pesa in media circa 1,4 chilogrammi.",c:"fatto",lv:3,info:"Informazione attendibile! \u00c8 il 2% del peso corporeo ma usa il 20% dell'energia. Contiene circa 86 miliardi di neuroni!"},
+{t:"Ovviamente avere tanti amici \u00e8 meglio che averne pochi.",c:"opinione",lv:3,spia:"Ovviamente",info:"\u00abOvviamente\u00bb e \u00abmeglio\u00bb sono opinioni. La qualit\u00e0 delle amicizie conta pi\u00f9 della quantit\u00e0!"},
+{t:"I dinosauri si sono estinti circa 66 milioni di anni fa.",c:"fatto",lv:3,info:"Informazione attendibile! La causa fu probabilmente un asteroide gigante. Ma gli uccelli sono discendenti dei dinosauri!"},
+{t:"",c:"",lv:3,special:"trasforma",info:"\u00abPi\u00f9 adorabili\u00bb aggiunge un giudizio personale, trasformando il fatto in opinione!",base:"I pinguini vivono nell'emisfero sud.",baseC:"fatto",opts:[{t:"I pinguini sono gli animali pi\u00f9 adorabili dell'emisfero sud.",ok:true},{t:"I pinguini si nutrono di pesci e crostacei.",ok:false}]},
+{t:"L'ossigeno \u00e8 necessario per la respirazione.",c:"fatto",lv:3,info:"Informazione attendibile! Il cervello consuma pi\u00f9 ossigeno di qualsiasi altro organo!"},
+{t:"\u00c8 indubbio che le storie con lieto fine siano le pi\u00f9 belle.",c:"opinione",lv:3,spia:"\u00c8 indubbio",info:"\u00ab\u00c8 indubbio\u00bb \u00e8 una trappola! Molti capolavori hanno finali tristi."},
+{t:"Pitagora era un matematico dell'antica Grecia.",c:"fatto",lv:3,info:"Informazione attendibile! Visse circa 2.500 anni fa. Il suo teorema si studia ancora oggi!"},
+{t:"Tutti concordano che i bambini di oggi siano pi\u00f9 intelligenti.",c:"opinione",lv:3,spia:"Tutti concordano",info:"\u00abTutti concordano\u00bb \u00e8 falso. L'intelligenza \u00e8 complessa e si manifesta in modi diversi!"},
+{t:"Le foglie delle piante contengono clorofilla.",c:"fatto",lv:3,info:"Informazione attendibile! In autunno la clorofilla si decompone e appaiono altri pigmenti: ecco perch\u00e9 le foglie cambiano colore!"},
+{t:"Ogni bambino dovrebbe imparare a programmare.",c:"opinione",lv:3,special:"motiva",info:"\u00abDovrebbe\u00bb esprime un desiderio, non un dato!",motiva:[{t:"Usa \u2018dovrebbe\u2019: esprime un desiderio, non un dato",ok:true},{t:"La programmazione esiste, quindi \u00e8 un fatto",ok:false},{t:"Parla di bambini, quindi \u00e8 verificabile",ok:false}]},
+{t:"L'orecchio umano ha tre parti: esterno, medio e interno.",c:"fatto",lv:3,info:"Informazione attendibile! L'orecchio interno contiene anche l'organo dell'equilibrio!"},
+{t:"Bisogna ammettere che viaggiare in treno \u00e8 pi\u00f9 piacevole.",c:"opinione",lv:3,spia:"Bisogna ammettere",info:"\u00abBisogna ammettere\u00bb cerca di forzarti. Il mezzo preferito varia da persona a persona!"},
+{t:"La plastica impiega centinaia di anni per decomporsi.",c:"fatto",lv:3,info:"Informazione attendibile! Una bottiglia pu\u00f2 impiegare fino a 450 anni! Per questo la raccolta differenziata \u00e8 importante."},
+{t:"",c:"",lv:3,special:"trasforma",info:"\u00abPi\u00f9 affascinante\u00bb \u00e8 un giudizio estetico. \u00ab112 km/h\u00bb \u00e8 un dato misurabile!",base:"Il ghepardo \u00e8 l'animale terrestre pi\u00f9 veloce.",baseC:"fatto",opts:[{t:"Il ghepardo \u00e8 l'animale pi\u00f9 affascinante della savana.",ok:true},{t:"Il ghepardo pu\u00f2 raggiungere i 112 km/h.",ok:false}]},
+{t:"Marte \u00e8 chiamato il Pianeta Rosso.",c:"fatto",lv:3,info:"Informazione attendibile! Il colore \u00e8 dovuto alla ruggine sulla superficie. Ha due piccole lune: Phobos e Deimos."},
+{t:"Indiscutibilmente, la pasta al pesto \u00e8 il piatto migliore.",c:"opinione",lv:3,spia:"Indiscutibilmente",info:"\u00abIndiscutibilmente\u00bb vuole chiudere la discussione, ma il gusto \u00e8 sempre soggettivo!"},
+{t:"Il Colosseo si trova a Roma.",c:"fatto",lv:3,info:"Informazione attendibile! Fu costruito tra il 72 e l'80 d.C., poteva contenere 50.000 spettatori!"},
+// LV4
+{t:"I terremoti sono causati dal movimento delle placche tettoniche.",c:"fatto",lv:4,info:"Informazione attendibile! La superficie terrestre \u00e8 divisa in circa 15 grandi placche che si muovono lentamente."},
+{t:"\u00c8 chiaro a tutti che le giornate di sole mettono di buon umore.",c:"opinione",lv:4,spia:"\u00c8 chiaro a tutti",info:"\u00abChiaro a tutti\u00bb e \u00abbuon umore\u00bb sono soggettivi. Qualcuno ama la pioggia!"},
+{t:"Alessandro Volta ha inventato la pila elettrica.",c:"fatto",lv:4,info:"Informazione attendibile! La invent\u00f2 nel 1800. Era di Como! L'unit\u00e0 \u00abvolt\u00bb prende il nome da lui."},
+{t:"I libri sono oggettivamente meglio dei tablet per leggere.",c:"opinione",lv:4,spia:"oggettivamente",info:"\u00abOggettivamente\u00bb \u00e8 una trappola! Non esiste una misura oggettiva. Entrambi hanno pro e contro."},
+{t:"",c:"",lv:4,special:"trasforma",info:"\u00abPi\u00f9 emozionante\u00bb \u00e8 soggettivo. La rifrazione della luce \u00e8 un fatto scientifico!",base:"L'arcobaleno \u00e8 formato da sette colori.",baseC:"fatto",opts:[{t:"L'arcobaleno \u00e8 lo spettacolo naturale pi\u00f9 emozionante.",ok:true},{t:"L'arcobaleno si forma per la rifrazione della luce.",ok:false}]},
+{t:"Nella tavola periodica ci sono pi\u00f9 di 100 elementi chimici.",c:"fatto",lv:4,info:"Informazione attendibile! Ad oggi 118. L'ultimo scoperto \u00e8 l'Oganesson, nel 2006!"},
+{t:"Senza ombra di dubbio le feste a sorpresa sono una bella idea.",c:"opinione",lv:4,spia:"Senza ombra di dubbio",info:"Alcune persone non amano le sorprese! \u00abBella idea\u00bb \u00e8 sempre soggettivo."},
+{t:"Il Monte Bianco \u00e8 la montagna pi\u00f9 alta delle Alpi.",c:"fatto",lv:4,info:"Informazione attendibile! 4.805 metri, al confine Italia-Francia. La prima scalata fu nel 1786!"},
+{t:"Imparare a suonare il pianoforte \u00e8 facilissimo.",c:"opinione",lv:4,special:"motiva",info:"La facilit\u00e0 dipende da ogni persona!",motiva:[{t:"Usa \u2018facilissimo\u2019: giudizio soggettivo sulla difficolt\u00e0",ok:true},{t:"Il pianoforte esiste, quindi si pu\u00f2 verificare",ok:false},{t:"Parla di un'azione concreta, quindi \u00e8 un fatto",ok:false}]},
+{t:"Inevitabilmente, il lavoro di squadra \u00e8 pi\u00f9 efficace.",c:"opinione",lv:4,spia:"Inevitabilmente",info:"\u00abInevitabilmente\u00bb forza una conclusione. Alcuni lavori si fanno meglio da soli!"},
+{t:"Il ghepardo \u00e8 l'animale terrestre pi\u00f9 veloce.",c:"fatto",lv:4,info:"Informazione attendibile! Raggiunge 112 km/h in 3 secondi. Per\u00f2 si stanca subito: regge solo 30 secondi!"},
+{t:"Nessuno pu\u00f2 davvero dire che la pioggia sia piacevole.",c:"opinione",lv:4,spia:"Nessuno pu\u00f2 davvero dire",info:"Molte persone trovano la pioggia rilassante! Il suono della pioggia \u00e8 usato come musica per dormire."},
+{t:"",c:"",lv:4,special:"trasforma",info:"\u00abPi\u00f9 dannoso che esista\u00bb \u00e8 soggettivo. \u00abPolimero sintetico\u00bb \u00e8 un dato scientifico!",base:"La plastica impiega centinaia di anni per decomporsi.",baseC:"fatto",opts:[{t:"La plastica \u00e8 il materiale pi\u00f9 dannoso che esista.",ok:true},{t:"La plastica \u00e8 un polimero sintetico derivato dal petrolio.",ok:false}]},
+{t:"Andare in bicicletta \u00e8 la cosa pi\u00f9 divertente da fare all'aperto.",c:"opinione",lv:4,info:"Non \u00e8 verificabile: \u00abpi\u00f9 divertente\u00bb \u00e8 un giudizio. C'\u00e8 chi preferisce correre, arrampicarsi o nuotare!"},
+{t:"L'arcobaleno \u00e8 formato da sette colori.",c:"fatto",lv:4,info:"Informazione attendibile! Rosso, arancione, giallo, verde, blu, indaco e violetto. In realt\u00e0 \u00e8 uno spettro continuo!"},
+{t:"Le ragazze sono indubbiamente pi\u00f9 brave a scuola dei ragazzi.",c:"opinione",lv:4,spia:"indubbiamente",info:"\u00abIndubbiamente\u00bb e \u00abpi\u00f9 brave\u00bb sono giudizi. I risultati dipendono da fattori individuali, non dal genere!"},
+{t:"In Italia ci sono 20 regioni.",c:"fatto",lv:4,info:"Informazione attendibile! 5 sono a statuto speciale: Valle d'Aosta, Trentino-Alto Adige, Friuli Venezia Giulia, Sicilia e Sardegna."},
+{t:"I cani sono i migliori amici dell'uomo.",c:"opinione",lv:4,special:"motiva",info:"\u00abMigliori\u00bb \u00e8 un giudizio affettivo!",motiva:[{t:"\u00abMigliori amici\u00bb \u00e8 un giudizio affettivo, non un dato",ok:true},{t:"I cani esistono davvero, perci\u00f2 \u00e8 un fatto",ok:false},{t:"Molte persone lo dicono, quindi \u00e8 verificabile",ok:false}]},
+{t:"L'Italia confina con Francia, Svizzera, Austria e Slovenia.",c:"fatto",lv:4,info:"Informazione attendibile! Ha anche 2 microstati al suo interno: San Marino e Vaticano!"},
+{t:"\u00c8 un fatto innegabile che la gentilezza sia la cosa pi\u00f9 importante.",c:"opinione",lv:4,spia:"\u00c8 un fatto innegabile",info:"\u00abFatto innegabile\u00bb non cambia nulla: \u00abla cosa pi\u00f9 importante\u00bb resta un giudizio di valore!"},
 ];
 
-/* ═══ STATE ═══ */
 let deck=[],idx=0,lvl=0,score=0,combo=0,comboMult=1;
-let okCount=0,koCount=0,okHist=[],koHist=[];
+let okCount=0,koCount=0;
 let audioCtx,analyser,micData;
+let infoVisible=false,advanceTimeout=null;
+let readDelayInterval=null;
 const COMBO_THRESHOLDS=[{n:3,m:2},{n:5,m:3},{n:8,m:4}];
-
-/* ═══ UTILS ═══ */
+const NPCS=[
+  {name:"SuperLuca",pts:35},{name:"StellaMax",pts:75},{name:"DragoRosso",pts:120},
+  {name:"NinjaGiulia",pts:170},{name:"TigreMarco",pts:225},{name:"RocketSara",pts:290},
+  {name:"VolpeFurba",pts:360},{name:"AquilaLeo",pts:430},{name:"FlashMatteo",pts:520},
+  {name:"PanteraGia",pts:610},{name:"FeniceSofia",pts:710},{name:"TuonoAlex",pts:790},
+  {name:"Maestra Alessia",pts:880,teacher:true},
+];
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*i+1|0;[a[i],a[j]]=[a[j],a[i]]}return a}
 function $(id){return document.getElementById(id)}
 
-/* ═══ MIC ═══ */
 async function initMic(){
-  try{
-    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const s=await navigator.mediaDevices.getUserMedia({audio:true});
-    const src=audioCtx.createMediaStreamSource(s);
-    analyser=audioCtx.createAnalyser();analyser.fftSize=512;
-    src.connect(analyser);micData=new Uint8Array(analyser.frequencyBinCount);
-    tickMic();
-  }catch(e){console.warn('Mic N/A',e)}
+  try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();const s=await navigator.mediaDevices.getUserMedia({audio:true});const src=audioCtx.createMediaStreamSource(s);analyser=audioCtx.createAnalyser();analyser.fftSize=512;src.connect(analyser);micData=new Uint8Array(analyser.frequencyBinCount);tickMic()}catch(e){}
 }
-function tickMic(){
-  if(!analyser)return;
-  analyser.getByteFrequencyData(micData);
-  let s=0;for(let i=0;i<micData.length;i++)s+=micData[i];
-  const avg=s/micData.length,pct=Math.min(avg/80*100,100);
-  $('micFill').style.width=pct+'%';
-  const strip=$('micStrip'),tag=$('micTag');
-  if(avg>48){strip.classList.add('loud');tag.textContent='TROPPO RUMORE'}
-  else{strip.classList.remove('loud');tag.textContent='SALA STUDIO'}
-  requestAnimationFrame(tickMic);
-}
+function tickMic(){if(!analyser)return;analyser.getByteFrequencyData(micData);let s=0;for(let i=0;i<micData.length;i++)s+=micData[i];const avg=s/micData.length,pct=Math.min(avg/80*100,100);$('micFill').style.width=pct+'%';if(avg>48){$('micStrip').classList.add('loud');$('micTag').textContent='TROPPO RUMORE'}else{$('micStrip').classList.remove('loud');$('micTag').textContent='SALA STUDIO'}requestAnimationFrame(tickMic)}
 
-/* ═══ GAME ═══ */
-function startGame(){
-  $('splash').style.display='none';
-  $('app').style.display='flex';
-  lvl=0;score=0;combo=0;comboMult=1;okCount=0;koCount=0;okHist=[];koHist=[];idx=0;
-  buildDeck();
-  renderLevelBadges();
-  updateHud();
-  renderHistos();
-  initMic();
-  showLevelOverlay(0,()=>showPhrase());
-}
+function startGame(){$('splash').style.display='none';$('app').style.display='flex';lvl=0;score=0;combo=0;comboMult=1;okCount=0;koCount=0;idx=0;buildDeck();renderLevelBadges();updateHud();renderSidebar();initMic();showLevelOverlay(0,()=>showPhrase())}
+function buildDeck(){deck=[];for(let l=0;l<5;l++)deck.push(...shuffle(F.filter(f=>f.lv===l)))}
+function showLevelOverlay(l,cb){$('lvlNum').textContent=l+1;$('lvlTitle').textContent=LEVELS[l].name;$('lvlDesc').textContent=LEVELS[l].desc;$('levelOverlay').classList.add('show');window._lvlCb=cb}
+function closeLevelOverlay(){$('levelOverlay').classList.remove('show');if(window._lvlCb)window._lvlCb()}
 
-function buildDeck(){
-  // group by level, shuffle within each
-  deck=[];
-  for(let l=0;l<5;l++){
-    const group=FRASI.filter(f=>f.lv===l);
-    deck.push(...shuffle(group));
-  }
-}
-
-/* ═══ LEVEL OVERLAY ═══ */
-function showLevelOverlay(l,cb){
-  const ov=$('levelOverlay');
-  $('lvlNum').textContent=l+1;
-  $('lvlTitle').textContent=LEVELS[l].name;
-  $('lvlDesc').textContent=LEVELS[l].desc;
-  ov.classList.add('show');
-  window._lvlCb=cb;
-}
-function closeLevelOverlay(){
-  $('levelOverlay').classList.remove('show');
-  if(window._lvlCb)window._lvlCb();
-}
-
-/* ═══ SHOW PHRASE ═══ */
 function showPhrase(){
   if(idx>=deck.length){endGame();return}
   const f=deck[idx];
-  const newLvl=f.lv;
-  if(newLvl!==lvl){
-    lvl=newLvl;
-    renderLevelBadges();
-    showLevelOverlay(lvl,()=>showPhrase());
-    return;
-  }
-  // reset UI
-  $('phraseCard').style.display='flex';
-  $('btnRow').style.display='flex';
-  $('optRow').style.display='none';
-  $('endScreen').style.display='none';
-  hideFeedback();
-  hideRoundLabel();
-
+  if(f.lv!==lvl){lvl=f.lv;renderLevelBadges();showLevelOverlay(lvl,()=>showPhrase());return}
+  $('phraseCard').style.display='flex';$('btnRow').style.display='flex';$('optRow').style.display='none';$('endScreen').style.display='none';
+  hideFeedback();hideInfo();hideRoundLabel();
   if(f.special==='trasforma'){showTrasforma(f);return}
   if(f.special==='motiva'){showMotiva(f);return}
-
-  // standard round
-  $('phraseText').innerHTML=f.t;
-  $('btnFatto').disabled=false;$('btnOpinione').disabled=false;
-  animCard();
-  updateHud();
+  $('phraseText').innerHTML=f.t;$('btnFatto').disabled=true;$('btnOpinione').disabled=true;
+  animCard();updateHud();
+  startReadDelay(()=>{$('btnFatto').disabled=false;$('btnOpinione').disabled=false});
 }
 
-/* ═══ STANDARD ANSWER ═══ */
-function answer(choice){
-  $('btnFatto').disabled=true;$('btnOpinione').disabled=true;
-  const f=deck[idx];
-  const ok=choice===f.c;
-  processResult(ok,f);
-}
+function answer(choice){$('btnFatto').disabled=true;$('btnOpinione').disabled=true;processResult(choice===deck[idx].c,deck[idx])}
 
 function processResult(ok,f){
-  let pts=0;
-  if(ok){
-    okCount++;combo++;
-    comboMult=1;
-    for(const c of COMBO_THRESHOLDS)if(combo>=c.n)comboMult=c.m;
-    pts=10*comboMult;
-    score+=pts;
-    showFeedback(true, comboMult>1?'Esatto! +'+pts+' (x'+comboMult+')':'Esatto! +'+pts);
-  }else{
-    koCount++;combo=0;comboMult=1;
-    const correctLabel=f.c==='fatto'?'Fatto':'Opinione';
-    let extra='';
-    if(f.spia)extra=' — parola-spia: «'+f.spia+'»';
-    showFeedback(false,'Era: '+correctLabel+extra);
-    // highlight spia
-    if(f.spia){
-      const el=$('phraseText');
-      el.innerHTML=el.innerHTML.replace(f.spia,'<span class="spia">'+f.spia+'</span>');
-    }
-  }
-  okHist.push(okCount);koHist.push(koCount);
-  updateHud();
-  renderHistos();
-  setTimeout(()=>{idx++;showPhrase()},ok?1000:1800);
+  clearTimeout(advanceTimeout);let pts=0;
+  if(ok){okCount++;combo++;comboMult=1;for(const c of COMBO_THRESHOLDS)if(combo>=c.n)comboMult=c.m;pts=10*comboMult;score+=pts;showFeedback(true,comboMult>1?'Esatto! +'+pts+' (x'+comboMult+')':'Esatto! +'+pts)}
+  else{koCount++;combo=0;comboMult=1;const cl=f.c==='fatto'?'Fatto':'Opinione';let extra='';if(f.spia)extra=' \u2014 parola-spia: \u00ab'+f.spia+'\u00bb';showFeedback(false,'Era: '+cl+extra);if(f.spia)$('phraseText').innerHTML=$('phraseText').innerHTML.replace(f.spia,'<span class="spia">'+f.spia+'</span>')}
+  updateHud();renderSidebar();
+  if(f.info)$('btnInfo').classList.add('visible');
+  advanceTimeout=setTimeout(()=>{idx++;showPhrase()},ok?1800:2400);
 }
 
-/* ═══ TRASFORMA ROUND ═══ */
+function toggleInfo(){
+  if(infoVisible){hideInfo();return}
+  clearTimeout(advanceTimeout);
+  const f=deck[idx];$('infoPanel').innerHTML=f.info||'';$('infoPanel').classList.add('show');infoVisible=true;
+  advanceTimeout=setTimeout(()=>{idx++;showPhrase()},6000);
+}
+function hideInfo(){$('infoPanel').classList.remove('show');infoVisible=false;$('btnInfo').classList.remove('visible')}
+
 function showTrasforma(f){
-  $('btnRow').style.display='none';
-  showRoundLabel('Trasforma!','rl-transform');
-  $('phraseText').innerHTML='<span style="font-size:.7em;color:var(--text-light);display:block;margin-bottom:6px">Questa è un FATTO. Quale frase lo trasforma in OPINIONE?</span>'+f.base;
+  $('btnRow').style.display='none';showRoundLabel('Trasforma!','rl-transform');
+  $('phraseText').innerHTML='<span style="font-size:.7em;color:var(--text-light);display:block;margin-bottom:6px">Questo \u00e8 un FATTO. Quale frase lo trasforma in OPINIONE?</span>'+f.base;
   const row=$('optRow');row.style.display='flex';row.innerHTML='';
-  const shuffled=shuffle([...f.opts]);
-  shuffled.forEach((o,i)=>{
-    const btn=document.createElement('button');
-    btn.className='opt-btn';btn.textContent=o.t;
-    btn.onclick=()=>answerOpt(btn,o.ok,f,shuffled);
-    row.appendChild(btn);
-  });
-  animCard();
-  updateHud();
+  shuffle([...f.opts]).forEach(o=>{const btn=document.createElement('button');btn.className='opt-btn';btn.textContent=o.t;btn.disabled=true;btn.onclick=()=>answerOpt(btn,o.ok,f);row.appendChild(btn)});
+  animCard();updateHud();startOptReadDelay();
 }
-
-/* ═══ MOTIVA ROUND ═══ */
 function showMotiva(f){
-  $('btnRow').style.display='none';
-  showRoundLabel('Motiva!','rl-motiva');
+  $('btnRow').style.display='none';showRoundLabel('Motiva!','rl-motiva');
   const label=f.c==='fatto'?'FATTO':'OPINIONE';
-  $('phraseText').innerHTML='<span style="font-size:.7em;color:var(--text-light);display:block;margin-bottom:6px">Questa è un '+label+'. Perché?</span>'+f.t;
+  $('phraseText').innerHTML='<span style="font-size:.7em;color:var(--text-light);display:block;margin-bottom:6px">Questa \u00e8 un '+label+'. Perch\u00e9?</span>'+f.t;
   const row=$('optRow');row.style.display='flex';row.innerHTML='';
-  const shuffled=shuffle([...f.motiva]);
-  shuffled.forEach(o=>{
-    const btn=document.createElement('button');
-    btn.className='opt-btn';btn.textContent=o.t;
-    btn.onclick=()=>answerOpt(btn,o.ok,f,shuffled);
-    row.appendChild(btn);
-  });
-  animCard();
-  updateHud();
+  shuffle([...f.motiva]).forEach(o=>{const btn=document.createElement('button');btn.className='opt-btn';btn.textContent=o.t;btn.disabled=true;btn.onclick=()=>answerOpt(btn,o.ok,f);row.appendChild(btn)});
+  animCard();updateHud();startOptReadDelay();
 }
+function answerOpt(btn,ok,f){document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);btn.classList.add(ok?'chosen-ok':'chosen-ko');processResult(ok,f)}
 
-function answerOpt(btn,ok,f,opts){
-  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
-  btn.classList.add(ok?'chosen-ok':'chosen-ko');
-  processResult(ok,f);
-}
-
-/* ═══ TIMER ═══ */
-
-/* ═══ UI HELPERS ═══ */
-function animCard(){
-  const c=$('phraseCard');c.classList.remove('pop','combo-glow');void c.offsetWidth;
-  c.classList.add('pop');
-  if(comboMult>1)c.classList.add('combo-glow');
-}
-function showFeedback(ok,msg){
-  const fb=$('feedback');fb.textContent=msg;
-  fb.className='feedback show '+(ok?(comboMult>1?'bonus':'ok'):'ko');
-}
-function hideFeedback(){$('feedback').className='feedback';$('feedback').textContent=''}
+function animCard(){const c=$('phraseCard');c.classList.remove('pop','combo-glow');void c.offsetWidth;c.classList.add('pop');if(comboMult>1)c.classList.add('combo-glow')}
+function showFeedback(ok,msg){const fb=$('feedback');fb.textContent=msg;fb.className='feedback show '+(ok?(comboMult>1?'bonus':'ok'):'ko')}
+function hideFeedback(){$('feedback').className='feedback';$('feedback').textContent='';clearInterval(readDelayInterval);$('readWait').classList.remove('active');$('btnRow').style.opacity='1'}
 function showRoundLabel(txt,cls){const l=$('roundLabel');l.style.display='block';l.textContent=txt;l.className='round-label '+cls}
 function hideRoundLabel(){$('roundLabel').style.display='none'}
 
 function updateHud(){
-  const inLevel=idx - deck.filter((_,i)=>i<idx&&deck[i].lv<lvl).length;
-  const levelSize=deck.filter(f=>f.lv===lvl).length;
-  const pos=Math.min(deck.filter((_,i)=>i<idx&&deck[i].lv===lvl).length+1,levelSize);
-  $('bLevel').textContent=LEVELS[lvl].name;
-  $('bProgress').textContent=pos+'/'+levelSize;
+  const pos=Math.min(deck.filter((_,i)=>i<idx&&deck[i].lv===lvl).length+1,deck.filter(f=>f.lv===lvl).length);
+  $('bLevel').textContent=LEVELS[lvl].name;$('bProgress').textContent=pos+'/'+deck.filter(f=>f.lv===lvl).length;
   $('bScore').textContent=score+' pt';
-  const bc=$('bCombo');
-  if(combo>=3){bc.style.display='inline';bc.textContent='Combo x'+comboMult}else{bc.style.display='none'}
+  if(combo>=3){$('bCombo').style.display='inline';$('bCombo').textContent='Combo x'+comboMult}else{$('bCombo').style.display='none'}
 }
+function renderLevelBadges(){const g=$('lvlGrid');g.innerHTML='';for(let i=0;i<5;i++){const d=document.createElement('div');d.className='lvl-badge'+(i<lvl?' unlocked':'')+(i===lvl?' active':'');d.textContent=i+1;g.appendChild(d)}}
 
-function renderLevelBadges(){
-  const g=$('lvlGrid');g.innerHTML='';
-  for(let i=0;i<5;i++){
-    const d=document.createElement('div');
-    d.className='lvl-badge'+(i<lvl?' unlocked':'')+(i===lvl?' active':'');
-    d.textContent=i+1;g.appendChild(d);
-  }
-}
-
-function renderHistos(){
-  renderTower();
-  renderCombo();
-  renderMedals();
-  $('errText').textContent=koCount===1?'1 errore':koCount+' errori';
-}
-
-const MEDAL_MILESTONES=[5,10,15,20,30,40,50,75,100];
-let prevMedalCount=0;
-
+function renderSidebar(){renderTower();renderCombo();renderMedals();renderLeaderboard();$('errText').textContent=koCount===1?'1 errore':koCount+' errori'}
+const MEDAL_MS=[5,10,15,20,30,40,50,75,100];
 function renderMedals(){
   const g=$('medalsGrid');
-  if(!g.children.length){
-    // build once
-    MEDAL_MILESTONES.forEach(m=>{
-      const d=document.createElement('div');
-      d.className='medal';d.id='medal_'+m;
-      d.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D97706"/></svg><span class="medal-num">'+m+'</span>';
-      g.appendChild(d);
-    });
-  }
-  let earnedCount=0;
-  MEDAL_MILESTONES.forEach(m=>{
-    const el=$('medal_'+m);
-    if(okCount>=m){
-      if(!el.classList.contains('earned')){
-        el.classList.add('earned','just-earned');
-        setTimeout(()=>el.classList.remove('just-earned'),600);
-      }
-      earnedCount++;
-    }
+  if(!g.children.length)MEDAL_MS.forEach(m=>{const d=document.createElement('div');d.className='medal';d.id='medal_'+m;d.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D97706"/></svg><span class="medal-num">'+m+'</span>';g.appendChild(d)});
+  MEDAL_MS.forEach(m=>{const el=$('medal_'+m);if(okCount>=m&&!el.classList.contains('earned')){el.classList.add('earned','just-earned');setTimeout(()=>el.classList.remove('just-earned'),600)}});
+}
+const TC=['#2563EB','#3B82F6','#60A5FA','#7C3AED','#8B5CF6','#A78BFA','#D97706','#F59E0B','#FBBF24'];
+function renderTower(){const c=$('towerContainer');const n=c.querySelectorAll('.tower-block').length;for(let i=n;i<okCount;i++){const b=document.createElement('div');b.className='tower-block';b.style.height='3px';b.style.background=TC[i%TC.length];c.insertBefore(b,c.querySelector('.tower-floor'))}}
+function renderCombo(){const box=$('comboBox'),fl=$('flameWrap'),lb=$('comboLabel');if(combo>=3){box.classList.remove('inactive');fl.style.transform='scale('+(1+Math.min(combo-3,10)*.08)+')';lb.textContent='COMBO x'+comboMult}else{box.classList.add('inactive');fl.style.transform='scale(1)';lb.textContent='COMBO'}}
+
+let prevRank=-1;
+function renderLeaderboard(){
+  const list=$('rankList');
+  const all=[...NPCS.map(n=>({name:n.name,pts:n.pts,teacher:!!n.teacher})),{name:'Tu',pts:score,player:true}];
+  all.sort((a,b)=>b.pts-a.pts);
+  const playerRank=all.findIndex(x=>x.player)+1;
+  list.innerHTML='';
+  all.forEach((r,i)=>{
+    const row=document.createElement('div');
+    row.className='rank-row'+(r.player?' is-player':'')+(r.teacher?' is-teacher':'');
+    if(r.player&&prevRank>0&&playerRank<prevRank)row.classList.add('just-passed');
+    row.innerHTML='<span class="rank-pos">'+(i+1)+'</span><span class="rank-name">'+r.name+'</span><span class="rank-pts">'+r.pts+'</span>';
+    list.appendChild(row);
   });
-  prevMedalCount=earnedCount;
+  prevRank=playerRank;
 }
 
-const TOWER_COLORS=['#2563EB','#3B82F6','#60A5FA','#7C3AED','#8B5CF6','#A78BFA','#D97706','#F59E0B','#FBBF24'];
-function renderTower(){
-  const c=$('towerContainer');
-  // keep floor, remove blocks
-  const blocks=c.querySelectorAll('.tower-block');
-  const currentCount=blocks.length;
-  if(okCount>currentCount){
-    // add new blocks
-    for(let i=currentCount;i<okCount;i++){
-      const b=document.createElement('div');
-      b.className='tower-block';
-      const color=TOWER_COLORS[i%TOWER_COLORS.length];
-      const maxBlocks=100;
-      const h=Math.max(Math.floor(190/maxBlocks),3);
-      b.style.height=h+'px';
-      b.style.background=color;
-      c.insertBefore(b,c.querySelector('.tower-floor'));
+const READ_DELAY=5000;
+function startReadDelay(cb){
+  $('btnFatto').disabled=true;$('btnOpinione').disabled=true;
+  $('btnRow').style.opacity='.3';
+  $('readWait').classList.add('active');
+  $('readWaitFill').style.width='0%';
+  const start=Date.now();
+  clearInterval(readDelayInterval);
+  readDelayInterval=setInterval(()=>{
+    const elapsed=Date.now()-start;
+    const pct=Math.min(elapsed/READ_DELAY*100,100);
+    $('readWaitFill').style.width=pct+'%';
+    if(elapsed>=READ_DELAY){
+      clearInterval(readDelayInterval);
+      $('readWait').classList.remove('active');
+      $('btnRow').style.opacity='1';
+      if(cb)cb();
     }
-  }
+  },50);
+}
+function startOptReadDelay(){
+  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
+  $('readWait').classList.add('active');
+  $('readWaitFill').style.width='0%';
+  const start=Date.now();
+  clearInterval(readDelayInterval);
+  readDelayInterval=setInterval(()=>{
+    const elapsed=Date.now()-start;
+    const pct=Math.min(elapsed/READ_DELAY*100,100);
+    $('readWaitFill').style.width=pct+'%';
+    if(elapsed>=READ_DELAY){
+      clearInterval(readDelayInterval);
+      $('readWait').classList.remove('active');
+      document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=false);
+    }
+  },50);
 }
 
-function renderCombo(){
-  const box=$('comboBox');
-  const flame=$('flameWrap');
-  const label=$('comboLabel');
-  if(combo>=3){
-    box.classList.remove('inactive');
-    const s=1+Math.min(combo-3,10)*0.08;
-    flame.style.transform='scale('+s+')';
-    label.textContent='COMBO x'+comboMult;
-  }else{
-    box.classList.add('inactive');
-    flame.style.transform='scale(1)';
-    label.textContent='COMBO';
-  }
-}
+function endGame(){$('phraseCard').style.display='none';$('btnRow').style.display='none';$('optRow').style.display='none';$('feedback').style.display='none';hideInfo();const end=$('endScreen');end.style.display='flex';const pct=Math.round(okCount/deck.length*100);$('endTitle').textContent=pct>=80?'Complimenti!':pct>=50?'Buon lavoro!':'Continua a esercitarti!';$('endMsg').textContent=okCount+'/'+deck.length+' corrette ('+pct+'%) \u2014 Punteggio: '+score+' pt'}
 
-/* ═══ END ═══ */
-function endGame(){
-  $('phraseCard').style.display='none';$('btnRow').style.display='none';$('optRow').style.display='none';
-  $('feedback').style.display='none';
-  const end=$('endScreen');end.style.display='flex';
-  const pct=Math.round(okCount/deck.length*100);
-  $('endTitle').textContent=pct>=80?'Complimenti!':pct>=50?'Buon lavoro!':'Continua a esercitarti!';
-  $('endMsg').textContent=okCount+'/'+deck.length+' corrette ('+pct+'%) — Punteggio: '+score+' pt';
-}
-
-function restart(){
-  lvl=0;score=0;combo=0;comboMult=1;okCount=0;koCount=0;okHist=[];koHist=[];idx=0;
-  buildDeck();renderLevelBadges();updateHud();renderHistos();
-  $('feedback').style.display='block';
-  $('endScreen').style.display='none';
-  showLevelOverlay(0,()=>showPhrase());
-}
+function restart(){lvl=0;score=0;combo=0;comboMult=1;okCount=0;koCount=0;idx=0;buildDeck();renderLevelBadges();updateHud();$('towerContainer').querySelectorAll('.tower-block').forEach(b=>b.remove());MEDAL_MS.forEach(m=>{const el=$('medal_'+m);if(el)el.classList.remove('earned')});renderSidebar();$('feedback').style.display='block';$('endScreen').style.display='none';showLevelOverlay(0,()=>showPhrase())}
 </script>
 </body>
 </html>
