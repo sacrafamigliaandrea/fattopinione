@@ -49,10 +49,7 @@ body::before{content:'';position:fixed;inset:0;background:
 .main{flex:1;display:flex;overflow:hidden}
 .arena{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:8px;position:relative}
 
-/* ── TIMER BAR ── */
-.timer-track{width:100%;max-width:680px;height:6px;background:#E2E8F0;border-radius:3px;overflow:hidden;flex-shrink:0}
-.timer-fill{height:100%;background:var(--blu);border-radius:3px;transition:width .15s linear}
-.timer-fill.hurry{background:var(--ambra)}
+
 
 /* ── PHRASE CARD ── */
 .phrase-card{
@@ -118,15 +115,54 @@ body::before{content:'';position:fixed;inset:0;background:
 .opt-btn:disabled{pointer-events:none;opacity:.6}
 
 /* ── SIDEBAR ── */
-.sidebar{width:200px;background:var(--card);border-left:2px solid #E2E8F0;padding:16px 12px;display:flex;flex-direction:column;gap:16px;overflow-y:auto;flex-shrink:0}
+.sidebar{width:210px;background:var(--card);border-left:2px solid #E2E8F0;padding:16px 12px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;flex-shrink:0}
 .side-section h3{font-family:'Fredoka',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
-.side-section.s-score h3{color:var(--blu)}
-.side-section.s-err h3{color:var(--ambra)}
 .side-section.s-levels h3{color:var(--accent)}
-.histo-wrap{display:flex;align-items:flex-end;gap:2px;height:110px}
-.hbar{flex:1;min-width:2px;border-radius:2px 2px 0 0;transition:height .35s ease}
-.hbar.hb-ok{background:var(--blu)}
-.hbar.hb-ko{background:var(--ambra)}
+.side-section.s-tower h3{color:var(--blu)}
+.side-section.s-medals h3{color:var(--ambra)}
+
+/* combo flame */
+.combo-box{text-align:center;padding:8px 0}
+.combo-box .flame-wrap{display:inline-block;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.combo-box .combo-label{font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:700;color:var(--accent);margin-top:4px}
+.combo-box.inactive{opacity:.2;filter:grayscale(1)}
+
+/* tower */
+.tower-container{position:relative;height:200px;background:var(--card-alt);border-radius:12px;border:1.5px solid #E2E8F0;overflow:hidden;display:flex;flex-direction:column-reverse;padding:4px;gap:2px}
+.tower-block{
+  width:100%;min-height:4px;border-radius:4px;
+  animation:blockDrop .35s cubic-bezier(.34,1.56,.64,1);
+  flex-shrink:0;
+}
+@keyframes blockDrop{0%{transform:translateY(-20px);opacity:0}100%{transform:translateY(0);opacity:1}}
+.tower-milestone{
+  position:absolute;right:6px;font-family:'Fredoka',sans-serif;font-size:.6rem;font-weight:700;
+  color:var(--text-light);pointer-events:none;
+}
+.tower-floor{
+  position:absolute;bottom:0;left:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--blu),var(--accent));border-radius:0 0 10px 10px;
+}
+
+/* medals */
+.medals-grid{display:flex;flex-wrap:wrap;gap:6px}
+.medal{
+  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:2px solid #E2E8F0;background:var(--card-alt);
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);position:relative;
+}
+.medal.earned{border-color:var(--ambra);background:var(--ambra-soft);box-shadow:0 2px 10px var(--ambra-glow)}
+.medal.earned svg{opacity:1}
+.medal svg{opacity:.2;transition:opacity .3s}
+.medal .medal-num{font-family:'Fredoka',sans-serif;font-size:.55rem;font-weight:700;color:var(--ambra);position:absolute;bottom:-2px;right:-2px;background:var(--card);border-radius:6px;padding:0 3px;border:1px solid var(--ambra-soft)}
+.medal.earned .medal-num{background:var(--ambra);color:#fff}
+.medal.just-earned{animation:medalPop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes medalPop{0%{transform:scale(0)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+
+/* errors — subtle */
+.err-line{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--card-alt);border-radius:8px;margin-top:auto}
+.err-line .err-dot{width:8px;height:8px;border-radius:50%;background:var(--ambra)}
+.err-line .err-text{font-family:'Fredoka',sans-serif;font-size:.78rem;color:var(--text-light)}
 
 /* level badges */
 .lvl-grid{display:flex;flex-wrap:wrap;gap:6px}
@@ -184,7 +220,7 @@ body::before{content:'';position:fixed;inset:0;background:
 <!-- ═══ SPLASH ═══ -->
 <div class="splash" id="splash">
   <img src="fattopinione.jpg" alt="Fatto o Opinione?" style="max-width:520px;width:90%;border-radius:var(--radius);box-shadow:var(--shadow)">
-  <p>Leggi la frase, decidi se è un <strong>fatto</strong> verificabile o un'<strong>opinione</strong> personale. Rispondi in fretta per guadagnare punti bonus e costruisci combo per moltiplicare il punteggio! Attenzione alle trappole...</p>
+  <p>Leggi la frase, decidi se è un <strong>fatto</strong> verificabile o un'<strong>opinione</strong> personale. Costruisci combo con le risposte consecutive per moltiplicare il punteggio! Attenzione alle trappole...</p>
   <button class="btn btn-start" onclick="startGame()">Inizia</button>
 </div>
 
@@ -209,9 +245,6 @@ body::before{content:'';position:fixed;inset:0;background:
 
   <div class="main">
     <div class="arena" id="arena">
-      <!-- timer -->
-      <div class="timer-track"><div class="timer-fill" id="timerFill"></div></div>
-
       <!-- phrase card -->
       <div class="phrase-card" id="phraseCard">
         <span class="round-label" id="roundLabel" style="display:none"></span>
@@ -243,13 +276,37 @@ body::before{content:'';position:fixed;inset:0;background:
         <h3>Livelli</h3>
         <div class="lvl-grid" id="lvlGrid"></div>
       </div>
-      <div class="side-section s-score">
-        <h3>Risposte esatte</h3>
-        <div class="histo-wrap" id="histOk"></div>
+
+      <!-- Combo Flame -->
+      <div class="combo-box inactive" id="comboBox">
+        <div class="flame-wrap" id="flameWrap">
+          <svg width="40" height="48" viewBox="0 0 40 48" fill="none">
+            <path d="M20 2c0 0-16 14-16 28a16 16 0 0032 0C36 16 20 2 20 2z" fill="#7C3AED" opacity=".2"/>
+            <path d="M20 12c0 0-9 8-9 18a9 9 0 0018 0C29 20 20 12 20 12z" fill="#7C3AED" opacity=".5"/>
+            <path d="M20 22c0 0-4 4-4 9a4 4 0 008 0C24 26 20 22 20 22z" fill="#7C3AED"/>
+          </svg>
+        </div>
+        <div class="combo-label" id="comboLabel">COMBO</div>
       </div>
-      <div class="side-section s-err">
-        <h3>Errori</h3>
-        <div class="histo-wrap" id="histKo"></div>
+
+      <!-- Tower -->
+      <div class="side-section s-tower">
+        <h3>La tua torre</h3>
+        <div class="tower-container" id="towerContainer">
+          <div class="tower-floor"></div>
+        </div>
+      </div>
+
+      <!-- Medals -->
+      <div class="side-section s-medals">
+        <h3>Traguardi</h3>
+        <div class="medals-grid" id="medalsGrid"></div>
+      </div>
+
+      <!-- Errors subtle -->
+      <div class="err-line" id="errLine">
+        <span class="err-dot"></span>
+        <span class="err-text" id="errText">0 errori</span>
       </div>
     </div>
   </div>
@@ -268,11 +325,11 @@ body::before{content:'';position:fixed;inset:0;background:
    DATA — 100 frasi, 5 livelli da 20
    ═══════════════════════════════════════════ */
 const LEVELS=[
-  {name:"Livello 1",desc:"Frasi chiare. Distingui fatti da opinioni.",timer:12},
-  {name:"Livello 2",desc:"Un po' più sottile. Occhio alle sfumature!",timer:10},
-  {name:"Livello 3",desc:"Arrivano le trappole linguistiche e i round Motiva!",timer:10},
-  {name:"Livello 4",desc:"Round Trasforma e frasi ambigue. Concentrazione!",timer:8},
-  {name:"Livello 5",desc:"Il livello esperto. Tutto insieme, tutto veloce.",timer:7},
+  {name:"Livello 1",desc:"Frasi chiare. Distingui fatti da opinioni."},
+  {name:"Livello 2",desc:"Un po' più sottile. Occhio alle sfumature!"},
+  {name:"Livello 3",desc:"Arrivano le trappole linguistiche e i round Motiva!"},
+  {name:"Livello 4",desc:"Round Trasforma e frasi ambigue. Concentrazione!"},
+  {name:"Livello 5",desc:"Il livello esperto. Tutto insieme!"},
 ];
 
 // spia: parola-trappola da evidenziare nel feedback
@@ -437,7 +494,6 @@ const FRASI=[
 /* ═══ STATE ═══ */
 let deck=[],idx=0,lvl=0,score=0,combo=0,comboMult=1;
 let okCount=0,koCount=0,okHist=[],koHist=[];
-let timerInterval=null,timerLeft=0,timerMax=0;
 let audioCtx,analyser,micData;
 const COMBO_THRESHOLDS=[{n:3,m:2},{n:5,m:3},{n:8,m:4}];
 
@@ -530,13 +586,11 @@ function showPhrase(){
   $('phraseText').innerHTML=f.t;
   $('btnFatto').disabled=false;$('btnOpinione').disabled=false;
   animCard();
-  startTimer(LEVELS[lvl].timer);
   updateHud();
 }
 
 /* ═══ STANDARD ANSWER ═══ */
 function answer(choice){
-  stopTimer();
   $('btnFatto').disabled=true;$('btnOpinione').disabled=true;
   const f=deck[idx];
   const ok=choice===f.c;
@@ -549,8 +603,7 @@ function processResult(ok,f){
     okCount++;combo++;
     comboMult=1;
     for(const c of COMBO_THRESHOLDS)if(combo>=c.n)comboMult=c.m;
-    const timeBonus=Math.round(timerLeft);
-    pts=(10+timeBonus)*comboMult;
+    pts=10*comboMult;
     score+=pts;
     showFeedback(true, comboMult>1?'Esatto! +'+pts+' (x'+comboMult+')':'Esatto! +'+pts);
   }else{
@@ -573,7 +626,6 @@ function processResult(ok,f){
 
 /* ═══ TRASFORMA ROUND ═══ */
 function showTrasforma(f){
-  stopTimer();
   $('btnRow').style.display='none';
   showRoundLabel('Trasforma!','rl-transform');
   $('phraseText').innerHTML='<span style="font-size:.7em;color:var(--text-light);display:block;margin-bottom:6px">Questa è un FATTO. Quale frase lo trasforma in OPINIONE?</span>'+f.base;
@@ -586,7 +638,6 @@ function showTrasforma(f){
     row.appendChild(btn);
   });
   animCard();
-  startTimer(LEVELS[lvl].timer+4);
   updateHud();
 }
 
@@ -605,43 +656,16 @@ function showMotiva(f){
     row.appendChild(btn);
   });
   animCard();
-  startTimer(LEVELS[lvl].timer+4);
   updateHud();
 }
 
 function answerOpt(btn,ok,f,opts){
-  stopTimer();
   document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
   btn.classList.add(ok?'chosen-ok':'chosen-ko');
   processResult(ok,f);
 }
 
 /* ═══ TIMER ═══ */
-function startTimer(sec){
-  timerMax=sec;timerLeft=sec;
-  $('timerFill').style.width='100%';
-  $('timerFill').classList.remove('hurry');
-  clearInterval(timerInterval);
-  const step=50;
-  timerInterval=setInterval(()=>{
-    timerLeft-=step/1000;
-    if(timerLeft<=0){timerLeft=0;clearInterval(timerInterval);timeUp();return}
-    const pct=timerLeft/timerMax*100;
-    $('timerFill').style.width=pct+'%';
-    if(pct<30)$('timerFill').classList.add('hurry');
-  },step);
-}
-function stopTimer(){clearInterval(timerInterval)}
-function timeUp(){
-  $('btnFatto').disabled=true;$('btnOpinione').disabled=true;
-  document.querySelectorAll('.opt-btn').forEach(b=>b.disabled=true);
-  const f=deck[idx];
-  koCount++;combo=0;comboMult=1;
-  koHist.push(koCount);okHist.push(okCount);
-  showFeedback(false,'Tempo scaduto!');
-  updateHud();renderHistos();
-  setTimeout(()=>{idx++;showPhrase()},1400);
-}
 
 /* ═══ UI HELPERS ═══ */
 function animCard(){
@@ -678,19 +702,79 @@ function renderLevelBadges(){
 }
 
 function renderHistos(){
-  renderH('histOk','hb-ok',okHist);
-  renderH('histKo','hb-ko',koHist);
+  renderTower();
+  renderCombo();
+  renderMedals();
+  $('errText').textContent=koCount===1?'1 errore':koCount+' errori';
 }
-function renderH(id,cls,data){
-  const w=$(id);w.innerHTML='';if(!data.length)return;
-  const max=Math.max(...data,1);
-  const sl=data.slice(-35);
-  sl.forEach(v=>{const b=document.createElement('div');b.className='hbar '+cls;b.style.height=Math.max(v/max*100,2)+'px';w.appendChild(b)});
+
+const MEDAL_MILESTONES=[5,10,15,20,30,40,50,75,100];
+let prevMedalCount=0;
+
+function renderMedals(){
+  const g=$('medalsGrid');
+  if(!g.children.length){
+    // build once
+    MEDAL_MILESTONES.forEach(m=>{
+      const d=document.createElement('div');
+      d.className='medal';d.id='medal_'+m;
+      d.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z" fill="#D97706"/></svg><span class="medal-num">'+m+'</span>';
+      g.appendChild(d);
+    });
+  }
+  let earnedCount=0;
+  MEDAL_MILESTONES.forEach(m=>{
+    const el=$('medal_'+m);
+    if(okCount>=m){
+      if(!el.classList.contains('earned')){
+        el.classList.add('earned','just-earned');
+        setTimeout(()=>el.classList.remove('just-earned'),600);
+      }
+      earnedCount++;
+    }
+  });
+  prevMedalCount=earnedCount;
+}
+
+const TOWER_COLORS=['#2563EB','#3B82F6','#60A5FA','#7C3AED','#8B5CF6','#A78BFA','#D97706','#F59E0B','#FBBF24'];
+function renderTower(){
+  const c=$('towerContainer');
+  // keep floor, remove blocks
+  const blocks=c.querySelectorAll('.tower-block');
+  const currentCount=blocks.length;
+  if(okCount>currentCount){
+    // add new blocks
+    for(let i=currentCount;i<okCount;i++){
+      const b=document.createElement('div');
+      b.className='tower-block';
+      const color=TOWER_COLORS[i%TOWER_COLORS.length];
+      const maxBlocks=100;
+      const h=Math.max(Math.floor(190/maxBlocks),3);
+      b.style.height=h+'px';
+      b.style.background=color;
+      c.insertBefore(b,c.querySelector('.tower-floor'));
+    }
+  }
+}
+
+function renderCombo(){
+  const box=$('comboBox');
+  const flame=$('flameWrap');
+  const label=$('comboLabel');
+  if(combo>=3){
+    box.classList.remove('inactive');
+    const s=1+Math.min(combo-3,10)*0.08;
+    flame.style.transform='scale('+s+')';
+    label.textContent='COMBO x'+comboMult;
+  }else{
+    box.classList.add('inactive');
+    flame.style.transform='scale(1)';
+    label.textContent='COMBO';
+  }
 }
 
 /* ═══ END ═══ */
 function endGame(){
-  stopTimer();
   $('phraseCard').style.display='none';$('btnRow').style.display='none';$('optRow').style.display='none';
   $('feedback').style.display='none';
   const end=$('endScreen');end.style.display='flex';
