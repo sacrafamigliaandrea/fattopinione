@@ -152,7 +152,8 @@ body::before{content:'';position:fixed;inset:0;background:
 /* ── SPLASH ── */
 .splash{
   position:fixed;inset:0;z-index:100;background:var(--bg);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  overflow-y:auto;padding:24px;
 }
 .splash::before{content:'';position:absolute;inset:0;background:
   radial-gradient(ellipse at 30% 70%,rgba(37,99,235,.06) 0,transparent 60%),
@@ -182,13 +183,7 @@ body::before{content:'';position:fixed;inset:0;background:
 
 <!-- ═══ SPLASH ═══ -->
 <div class="splash" id="splash">
-  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-    <rect x="2" y="2" width="56" height="56" rx="16" stroke="#2563EB" stroke-width="2.5"/>
-    <text x="30" y="27" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="15" fill="#2563EB">F</text>
-    <line x1="14" y1="33" x2="46" y2="33" stroke="#E2E8F0" stroke-width="2"/>
-    <text x="30" y="50" text-anchor="middle" font-family="Fredoka" font-weight="700" font-size="15" fill="#D97706">O</text>
-  </svg>
-  <h2>Fatto <span>o Opinione?</span></h2>
+  <img src="fattopinione.jpg" alt="Fatto o Opinione?" style="max-width:520px;width:90%;border-radius:var(--radius);box-shadow:var(--shadow)">
   <p>Leggi la frase, decidi se è un <strong>fatto</strong> verificabile o un'<strong>opinione</strong> personale. Rispondi in fretta per guadagnare punti bonus e costruisci combo per moltiplicare il punteggio! Attenzione alle trappole...</p>
   <button class="btn btn-start" onclick="startGame()">Inizia</button>
 </div>
